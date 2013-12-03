@@ -3,6 +3,32 @@
  * Customisations to the Admin Testimonials Listing.
  */
 
+if ( ! defined( 'KBTE_VERSION' ) ) {
+    header( 'HTTP/1.0 403 Forbidden' );
+    die;
+}
+
+/*
+ * Customise the Title Placeholder for Testimonials.
+ */
+function kbte_testimonials_title_placeholder( $title ) {
+
+    // Gets current post type
+    $screen = get_current_screen();
+    $post_type = $screen->post_type;
+    
+    // Only change for the right post type.
+    if ( 'kbte_testimonials' == $post_type ) {
+        
+        $title = apply_filters( 'kbte_testimonials_title_placeholder', 'Enter client name(s) here', $post_type );
+        
+    }
+
+    return $title;
+    
+}
+add_filter( 'enter_title_here', 'kbte_testimonials_title_placeholder' );
+
 /**
  * Edit the Admin List Titles for Testimonials.
  */
