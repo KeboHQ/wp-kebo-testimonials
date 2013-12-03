@@ -1,7 +1,7 @@
 === Kebo Testimonials ===
 Contributors: PeterBooker
 Tags: testimonials, testimonial, widget, custom post type
-Requires at least: 3.4
+Requires at least: 3.2
 Tested up to: 3.7.1
 Stable tag: 0.5.0
 License: GPLv2 or later
