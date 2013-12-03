@@ -53,9 +53,14 @@ if ( version_compare( PHP_VERSION, '5.2', '<' ) ) {
 function kbte_plugin_setup() {
 
     /*
+     * Include Custom Post Type.
+     */
+    require_once( KBTE_PATH . 'inc/custom-post-type.php' );
+    
+    /*
      * Include Options.
      */
-    //require_once( KBTE_PATH . 'inc/options.php' );
+    require_once( KBTE_PATH . 'inc/options.php' );
     
 }
 add_action( 'plugins_loaded', 'kbte_plugin_setup', 15 );
