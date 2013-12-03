@@ -1,13 +1,14 @@
 <?php
 /*
- * Uninstall - Removed Options and Transients.
+ * Uninstall - Remove all traces of the plugin from the WordPress install.
  */
 
 // Check for Un-Install constant.
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     exit();
+}
 
-if (is_multisite()) {
+if ( is_multisite() ) {
 
     global $wpdb;
 

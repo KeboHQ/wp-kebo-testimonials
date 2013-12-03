@@ -1,6 +1,6 @@
 <?php
 /* 
- * Options API
+ * Widget to display the Testimonials
  */
 
 if ( ! defined( 'KBTE_VERSION' ) ) {

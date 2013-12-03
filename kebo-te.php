@@ -11,8 +11,9 @@
  */
 
 // Block direct access
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
     die( 'Sorry, no direct access.' );
+}
 
 define( 'KBTE_VERSION', '0.1.0' );
 define( 'KBTE_URL', plugin_dir_url(__FILE__) );
