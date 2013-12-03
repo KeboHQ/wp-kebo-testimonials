@@ -38,6 +38,24 @@ class Kbte_Testimonials_Widget extends WP_Widget {
     static $printed_admin_js;
     
     /**
+     * Setup the Widget
+     */
+    function Kbte_Testimonials_Widget() {
+
+        $widget_ops = array(
+            'classname' => 'kbte_testimonials_widget',
+            'description' => __( 'Displays Testimonials.', 'kbte' )
+        );
+
+        $this->WP_Widget(
+            false,
+            __( 'Kebo Testimonials', 'kbte' ),
+            $widget_ops
+        );
+        
+    }
+    
+    /**
      * Outputs Content
      */
     function widget( $args, $instance ) {
