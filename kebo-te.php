@@ -22,7 +22,7 @@ define( 'KBTE_PATH', plugin_dir_path(__FILE__) );
 /*
  * Load textdomain early, as we need it for the PHP version check.
  */
-function kbso_load_textdomain() {
+function kbte_load_textdomain() {
     
     load_plugin_textdomain( 'kbte', false, KBSO_PATH . '/languages' );
     
@@ -54,14 +54,45 @@ if ( version_compare( PHP_VERSION, '5.2', '<' ) ) {
 function kbte_plugin_setup() {
 
     /*
+     * Include Options.
+     */
+    require_once( KBTE_PATH . 'inc/options.php' );
+    
+    /*
      * Include Custom Post Type.
      */
     require_once( KBTE_PATH . 'inc/custom-post-type.php' );
     
     /*
-     * Include Options.
+     * Include Shortcode.
      */
-    require_once( KBTE_PATH . 'inc/options.php' );
+    require_once( KBTE_PATH . 'inc/shortcode.php' );
+    
+    /*
+     * Include Widget.
+     */
+    require_once( KBTE_PATH . 'inc/widget.php' );
+    
+    if ( is_admin() ) {
+    
+        /*
+         * Include Admin Customisations.
+         */
+        require_once( KBTE_PATH . 'inc/admin.php' );
+        
+        /*
+         * Include Menu Page.
+         */
+        require_once( KBTE_PATH . 'inc/menu.php' );
+    
+    } else {
+        
+        /*
+         * Include Frontend Customisations.
+         */
+        require_once( KBTE_PATH . 'inc/front.php' );
+        
+    }
     
 }
 add_action( 'plugins_loaded', 'kbte_plugin_setup', 15 );
@@ -71,7 +102,7 @@ add_action( 'plugins_loaded', 'kbte_plugin_setup', 15 );
  */
 function kbte_plugin_meta( $links ) {
     
-    $links[] = '<a href="' . admin_url( 'options-general.php?page=kebo-twitter' ) . '">' . __( 'Settings', 'kbte' ) . '</a>';
+    $links[] = '<a href="' . admin_url( 'options-general.php?page=kbte-testimonials' ) . '">' . __( 'Settings', 'kbte' ) . '</a>';
     return $links;
     
 }
