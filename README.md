@@ -17,4 +17,4 @@ The easiest way to add a great looking Twitter feed to your website.
 
 ## Description ##
 
-Hassle-free and user-friendly way to add a Twitter Feed to your website. We provide a custom Widget to help you display the Twitter Feed on your website, as well as direct access to the data for developers to use as they wish.
+This WordPress plugin adds the ability to add, manage and display Testimonials on your WordPress powered website. It is built with users and developers in mind, allowing a user to easily add the functionality to their website and allowing developers the ability to customise it to their needs.
