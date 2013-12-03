@@ -12,8 +12,7 @@
   
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
   
-
-The easiest way to add a great looking Twitter feed to your website.
+The easiest way to add great looking Testimonials to your website.
 
 ## Description ##
 
