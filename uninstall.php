@@ -17,14 +17,14 @@ if ( is_multisite() ) {
 
     // Get a list of all Blog IDs, ignore network admin with ID of 1.
     $blogs = $wpdb->get_results("
-            SELECT blog_id
-            FROM {$wpdb->blogs}
-            WHERE site_id = '{$wpdb->siteid}'
-            AND spam = '0'
-            AND deleted = '0'
-            AND archived = '0'
-            AND blog_id != '{$current_blog}'
-        ");
+        SELECT blog_id
+        FROM {$wpdb->blogs}
+        WHERE site_id = '{$wpdb->siteid}'
+        AND spam = '0'
+        AND deleted = '0'
+        AND archived = '0'
+        AND blog_id != '{$current_blog}'
+    ");
 
     foreach ( $blogs as $blog ) {
 
