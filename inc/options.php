@@ -217,7 +217,6 @@ function kbte_plugin_options_validate( $input ) {
     
     if ( isset( $input['testimonials_general_page_slug'] ) && ! empty( $input['testimonials_general_page_slug'] ) ) {
 	$output['testimonials_general_page_slug'] = wp_unique_post_slug( $input['testimonials_general_page_slug'] );
-        flush_rewrite_rules();
     }
     
     // Combine Inputs with currently Saved data, for multiple option page compability
