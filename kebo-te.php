@@ -64,6 +64,11 @@ function kbte_plugin_setup() {
     require_once( KBTE_PATH . 'inc/custom-post-type.php' );
     
     /*
+     * Include Meta Functions.
+     */
+    require_once( KBTE_PATH . 'inc/meta.php' );
+    
+    /*
      * Include Shortcode.
      */
     require_once( KBTE_PATH . 'inc/shortcode.php' );
@@ -92,7 +97,17 @@ function kbte_plugin_setup() {
          */
         require_once( KBTE_PATH . 'inc/front.php' );
         
+        /*
+         * Include Pagination.
+         */
+        require_once( KBTE_PATH . 'inc/pagination.php' );
+        
     }
+    
+    /*
+     * Include Misc Functions.
+     */
+    require_once( KBTE_PATH . 'inc/misc.php' );
     
 }
 add_action( 'plugins_loaded', 'kbte_plugin_setup', 15 );
