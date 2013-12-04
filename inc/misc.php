@@ -11,14 +11,14 @@ function kbte_flush_rewrite_rules() {
     
     global $pagenow, $wp_rewrite;
 
-    if ( 'admin.php' != $pagenow ) {
+    if ( 'options-general.php' != $pagenow ) {
         return;
     }
     
     /*
      * If the plugin settings have been updated flush rewrite rules
      */
-    if ( isset( $_GET['page'] ) && ( 'kbte-testimonials' == $_GET['page'] ) ) {
+    if ( isset( $_GET['page'] ) && ( 'kbte-testimonials' == $_GET['page'] ) && isset( $_GET['settings-updated'] ) ) {
         $wp_rewrite->flush_rules();
     }
     
