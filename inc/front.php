@@ -13,9 +13,11 @@ if ( ! defined( 'KBTE_VERSION' ) ) {
  */
 function kbte_testimonials_template_redirect( $template ) {
 
+    $post_type = get_query_var( 'post_type' );
+    
     // Check Post Type
-    if ( 'kbte_testimonials' != get_query_var( 'post_type' ) ) {
-        return;
+    if ( empty( $post_type ) || 'kbte_testimonials' != $post_type ) {
+        return $template;
     }
 
     /*
@@ -73,3 +75,30 @@ function kbte_testimonials_template_redirect( $template ) {
     
 }
 add_filter( 'template_include', 'kbte_testimonials_template_redirect' );
+
+/**
+ * Testimonial Archive Query.
+ */
+function kbte_testimonials_archive_query( $query ) {
+
+    // Is admin or not main query
+    if ( is_admin() || ! $query->is_main_query() ) {
+        return;
+    }
+
+    // Set Testimonials per Page as per user option
+    if ( isset( $query->query_vars['post_type'] ) && ( 'kbte_testimonials' == $query->query_vars['post_type'] ) ) {
+
+        // Orders by the Menu Order attribute
+        //$query->set( 'orderby', 'menu_order' );
+        // Ascending order (1 first, etc).
+        //$query->set( 'order', 'ASC' );
+        // User Option for Posts per Page
+        $query->set( 'posts_per_archive_page', 2 );
+        
+    }
+    
+    return;
+
+}
+add_filter( 'pre_get_posts', 'kbte_testimonials_archive_query', 1 );
