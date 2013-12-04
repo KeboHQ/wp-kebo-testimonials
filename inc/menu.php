@@ -9,7 +9,7 @@ if ( ! defined( 'KBTE_VERSION' ) ) {
 }
 
 /*
- * Registerplugin Settings page inside the Settings menu.
+ * Register plugin settings page inside the Settings menu.
  */
 function kbte_testimonials_settings_page() {
 
@@ -19,7 +19,7 @@ function kbte_testimonials_settings_page() {
             __('Kebo Testimonials', 'kbte'), // Menu Title
             'manage_options', // Capability
             'kbte-testimonials', // Menu Slug
-            'kbte_testimonials_settings_menu_render' // Render Function
+            'kbte_testimonials_settings_page_render' // Render Function
     );
 
 }
@@ -40,9 +40,9 @@ function kbte_testimonials_settings_page_render() {
 
         <form method="post" action="options.php">
             <?php
-            //settings_fields('kbte_testimonials_options');
-            //do_settings_sections('kbte-testimonials');
-            //submit_button();
+            settings_fields('kbte_options');
+            do_settings_sections('kbte-testimonials');
+            submit_button();
             ?>
         </form>
         
