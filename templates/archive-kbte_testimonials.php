@@ -36,7 +36,7 @@ get_header();
                         // Defaults if not set
                         $name = ( isset( $custom_post_meta['reviewer_name'] ) ) ? $custom_post_meta['reviewer_name'] : '' ;
                         $url = ( isset( $custom_post_meta['reviewer_url'] ) ) ? $custom_post_meta['reviewer_url'] : '' ;
-                        $rating = ( isset( $custom_post_meta['reviewer_rating'] ) ) ? $custom_post_meta['reviewer_name'] : 0 ;
+                        $rating = ( isset( $custom_post_meta['reviewer_rating'] ) ) ? $custom_post_meta['reviewer_rating'] : 0 ;
                         ?>
 
                         <div id="post-<?php the_ID(); ?>" <?php post_class('ktestimonial'); ?> style="width: 100%; overflow: hidden;">
@@ -76,15 +76,15 @@ get_header();
                         
                 <?php
                 global $wp_post_types;
-                $cpt = $wp_post_types['kebo_testimonials'];
+                $cpt = $wp_post_types['kbte_testimonials'];
                 ?>
                 <?php if ( current_user_can( 'publish_posts' ) ) : ?>
 
-                    <p><?php printf(__('Ready to create your first %2$s? <a href="%1$s">Get started here</a>.', 'kebo'), admin_url('post-new.php?post_type=kebo_testimonials'), $cpt->labels->singular_name); ?></p>
+                    <p><?php printf( __('Ready to create your first %2$s? <a href="%1$s">Get started here</a>.', 'kbte'), admin_url( 'post-new.php?post_type=kbte_testimonials' ), $cpt->labels->singular_name ); ?></p>
 
                 <?php else : ?>
 
-                    <p><?php printf(__('Sorry, there are currently no %1$s to display.', 'kebo'), $cpt->labels->name); ?></p>
+                    <p><?php printf( __('Sorry, there are currently no %1$s to display.', 'kbte'), $cpt->labels->name ); ?></p>
 
                 <?php endif; ?>
 
