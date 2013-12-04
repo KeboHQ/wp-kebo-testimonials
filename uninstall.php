@@ -26,29 +26,21 @@ if ( is_multisite() ) {
             AND blog_id != '{$current_blog}'
         ");
 
-    foreach ($blogs as $blog) {
+    foreach ( $blogs as $blog ) {
 
-        switch_to_blog($blog->blog_id);
+        switch_to_blog( $blog->blog_id );
 
         // Delete the Options we registered.
-        delete_option('kebo_twitter_options');
-        delete_option('kebo_twitter_errors');
-
-        // Delete the Transients we registered.
-        delete_transient('kebo_twitter_connection_' . $blog->blog_id);
-        delete_transient('kebo_twitter_feed_' . $blog->blog_id);
+        //delete_option('kebo_twitter_options');
         
     }
 
     // Go back to Network Site
-    switch_to_blog($current_blog);
+    switch_to_blog( $current_blog );
     
 } else {
 
     // Delete the Option we registered.
-    delete_option('kebo_twitter_options');
-
-    // Delete the Transients we registered.
-    delete_transient('kebo_twitter_connection_1');
-    delete_transient('kebo_twitter_feed_1');
+    //delete_option('kebo_twitter_options');
+    
 }
