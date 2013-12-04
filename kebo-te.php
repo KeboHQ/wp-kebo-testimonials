@@ -121,7 +121,7 @@ function kbte_add_plugin_link( $links ) {
     return $links;
     
 }
-add_filter( 'plugin_action_links_kebo-te/kebo-te.php', 'kbte_add_plugin_link' ); 
+add_filter( 'plugin_action_links_kebo-te/kebo-te.php', 'kbte_add_plugin_link' );
 
 /**
  * Adds a WordPress Pointer to Kebo Testimonials options page.
