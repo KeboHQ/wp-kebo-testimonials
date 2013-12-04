@@ -22,22 +22,23 @@ get_header();
                 <div class="ktestimonials-container">
 
                     <?php while ( have_posts()) : the_post(); ?>
+                    
+                        <?php
+                        $custom_post_meta = get_post_meta( get_the_ID(), 'kbte_testimonials_post_meta', true );
+    
+                        // Defaults if not set
+                        $name = ( isset( $custom_post_meta['reviewer_name'] ) ) ? $custom_post_meta['reviewer_name'] : '' ;
+                        $url = ( isset( $custom_post_meta['reviewer_url'] ) ) ? $custom_post_meta['reviewer_url'] : '' ;
+                        $rating = ( isset( $custom_post_meta['reviewer_rating'] ) ) ? $custom_post_meta['reviewer_name'] : 0 ;
+                        ?>
 
-                        <div id="post-<?php the_ID(); ?>" <?php post_class('ktestimonial'); ?>>
+                        <div id="post-<?php the_ID(); ?>" <?php post_class('ktestimonial'); ?> style="width: 100%; overflow: hidden;">
 
                             <div itemscope itemtype="http://schema.org/Review">
+                                
                                 <div itemprop="itemReviewed" itemscope itemtype="http://schema.org/WebPage">
-                                    <span itemprop="name"><?php the_title(); ?></span>
+                                    Title: <span itemprop="name"><?php the_title(); ?></span>
                                 </div>
-                                <div itemprop="author" itemscope itemtype="http://schema.org/Person">
-                                    <span itemprop="name">Peter Booker</span>
-                                </div>
-                                <div itemprop="reviewBody">
-                                    <?php the_content(); ?>
-                                </div>
-                            </div> 
-                            
-                            <div class="entry-content">
                                 
                                 <?php
                                 // check if the post has a Post Thumbnail assigned to it.
@@ -46,17 +47,15 @@ get_header();
                                 }
                                 ?>
                                 
-                                <h2 class="entry-title">
-                                    <a href="<?php the_permalink(); ?>">
-                                        <?php the_title(); ?>
-                                    </a>
-                                </h2>
-
-                                <div class="ktestimonial-text">
+                                <div itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                    Author: <span itemprop="name">Peter Booker</span>
+                                </div>
+                                
+                                <div itemprop="reviewBody">
                                     <?php the_content(); ?>
                                 </div>
-
-                            </div><!-- .entry-content -->
+                                
+                            </div> 
 
                         </div><!-- #post-<?php the_ID(); ?> -->
 
