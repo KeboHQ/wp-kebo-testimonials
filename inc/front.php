@@ -89,12 +89,14 @@ function kbte_testimonials_archive_query( $query ) {
     // Set Testimonials per Page as per user option
     if ( isset( $query->query_vars['post_type'] ) && ( 'kbte_testimonials' == $query->query_vars['post_type'] ) ) {
 
+        $options = kbte_get_plugin_options();
+        
         // Orders by the Menu Order attribute
         //$query->set( 'orderby', 'menu_order' );
         // Ascending order (1 first, etc).
         //$query->set( 'order', 'ASC' );
         // User Option for Posts per Page
-        $query->set( 'posts_per_archive_page', 2 );
+        $query->set( 'posts_per_archive_page', $options['testimonials_general_posts_per_page'] );
         
     }
     
