@@ -13,6 +13,8 @@ if ( ! defined( 'KBTE_VERSION' ) ) {
  */
 function kbte_create_testimonials_cpt() {
     
+    $options = kbte_get_plugin_options();
+    
     /*
      * Set the Labels to be used for the CPT
      */
@@ -56,8 +58,8 @@ function kbte_create_testimonials_cpt() {
         'taxonomies' => array(''),
         'menu_icon' => '',
         'rewrite' => array(
-            'slug' => 'testimonials', // TODO: change to dynamic $slug
-            'feeds' => false, // rss feeds
+            'slug' => $options['testimonials_general_page_slug'], // TODO: change to dynamic $slug
+            'feeds' => true, // rss feeds
             'pages' => true, // prepares for pagination
             'with_front' => false // use url prefix like /blog etc.
         ),
