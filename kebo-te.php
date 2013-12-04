@@ -115,13 +115,13 @@ add_action( 'plugins_loaded', 'kbte_plugin_setup', 15 );
 /**
  * Add a link to the plugin screen, to allow users to jump straight to the settings page.
  */
-function kbte_plugin_meta( $links ) {
+function kbte_add_plugin_link( $links ) {
     
     $links[] = '<a href="' . admin_url( 'options-general.php?page=kbte-testimonials' ) . '">' . __( 'Settings', 'kbte' ) . '</a>';
     return $links;
     
 }
-add_filter( 'plugin_action_links_kebo-te/kebo-te.php', 'kbte_plugin_meta' ); 
+add_filter( 'plugin_action_links_kebo-te/kebo-te.php', 'kbte_add_plugin_link' ); 
 
 /**
  * Adds a WordPress Pointer to Kebo Testimonials options page.
