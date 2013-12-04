@@ -11,30 +11,62 @@ if ( ! defined( 'KBTE_VERSION' ) ) {
 /*
  * Tells WordPress which template file to use
  */
-function kbte_testimonials_template_redirect( $template, $query ) {
+function kbte_testimonials_template_redirect( $template ) {
 
-    if ( 'kbte_testimonials' == $query->query_vars['post_type'] ) {
+    // Check Post Type
+    if ( 'kbte_testimonials' != get_query_var( 'post_type' ) ) {
+        return;
+    }
 
-        if ( ! is_single() ) {
+    /*
+     * Check if it is a single Testimonial or not.
+     */
+    if ( ! is_single() ) {
 
-            if ( file_exists( get_stylesheet_directory() . '/archive-kbte_testimonials.php' ) )
-                $template = get_stylesheet_directory() . '/archive-kbte_testimonials.php';
-            elseif ( file_exists( get_template_directory() . '/archive-kbte_testimonials.php' ) )
-                $template = get_template_directory() . '/archive-kbte_testimonials.php';
-            else
-                $template = KEBO_PLUGIN_PATH . 'templates/archive-kbte_testimonials.php';
+        // Check the Child Theme
+        if ( file_exists( get_stylesheet_directory() . '/archive-kbte_testimonials.php' ) ) {
 
-        } else {
-
-            if ( file_exists( get_stylesheet_directory() . '/single-kbte_testimonials.php' ) )
-                $template = get_stylesheet_directory() . '/single-kbte_testimonials.php';
-            elseif ( file_exists( get_template_directory() . '/single-kbte_testimonials.php' ) )
-                $template = get_template_directory() . '/single-kbte_testimonials.php';
-            else
-                $template = KEBO_PLUGIN_PATH . 'templates/archive-kbte_testimonials.php';
+            $template = get_stylesheet_directory() . '/archive-kbte_testimonials.php';
 
         }
-        
+
+        // Check the Parent Theme
+        elseif ( file_exists( get_template_directory() . '/archive-kbte_testimonials.php' ) ) {
+
+            $template = get_template_directory() . '/archive-kbte_testimonials.php';
+
+        }
+
+        // Use the Plugin Files
+        else {
+
+            $template = KBTE_PATH . 'templates/archive-kbte_testimonials.php';
+
+        }
+
+    } else {
+
+        // Check the Child Theme
+        if ( file_exists( get_stylesheet_directory() . '/single-kbte_testimonials.php' ) ) {
+                
+            $template = get_stylesheet_directory() . '/single-kbte_testimonials.php';
+                
+        }
+            
+        // Check the Parent Theme
+        elseif ( file_exists( get_template_directory() . '/single-kbte_testimonials.php' ) ) {
+                
+            $template = get_template_directory() . '/single-kbte_testimonials.php';
+                
+        }
+            
+        // Use the Plugin Files
+        else {
+                
+            $template = KBTE_PATH . 'templates/single-kbte_testimonials.php';
+                
+       }
+
     }
 
     return $template;
