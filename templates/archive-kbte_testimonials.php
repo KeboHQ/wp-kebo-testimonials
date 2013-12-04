@@ -10,10 +10,17 @@ get_header();
 <div class="kcontainer" style="overflow: hidden;">
 
     <div class="ktestimonials">
-
+        
+            <?php
+            $options = kbte_get_plugin_options();
+            if ( ! empty( $options['testimonials_general_page_title'] ) ) {
+            ?>
             <header class="page-header">
-                <h1 class="page-title"><?php __('Testimonials', 'kbte'); ?></h1>
+                <h1 class="page-title">
+                    <?php echo $options['testimonials_general_page_title']; ?>
+                </h1>
             </header><!-- .page-header -->
+            <?php } ?>
 
             <?php //echo wpautop( $options['feature_testimonials_intro_text'] ); ?>
 
