@@ -138,7 +138,13 @@ function kbte_enqueue_frontend() {
     
     if ( isset( $post->post_type ) && 'kbte_testimonials' == $post->post_type ) {
         
-        wp_enqueue_style( 'kbte-front' );
+        $options = kbte_get_plugin_options();
+        
+        if ( 'none' != $options['testimonials_general_visual_style'] ) {
+        
+            wp_enqueue_style( 'kbte-front' );
+        
+        }
         
     }
         
