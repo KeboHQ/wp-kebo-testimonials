@@ -1,3 +1,17 @@
 /*
  * Kebo Testimonials - Admin Styles
  */
+
+/*
+ * Testimonials Admin - Post Meta
+ */
+
+#kbte_reviewer_name,
+#kbte_reviewer_url {
+        width: 100%;
+}
+
+/*
+ * Rating System
+ */
+@import "misc/ratings";

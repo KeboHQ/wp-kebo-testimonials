@@ -1,0 +1,38 @@
+/*
+ * Rating Input Styles
+ */
+.kratingmeta {
+        display: block;
+}
+.kratingmeta label {
+        display: block;
+}
+.krating {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        clear: both;
+}
+.krating-input {
+        visibility: hidden;
+        float: left;
+        display: block;
+        width: 16px;
+        height: 16px;
+}
+.krating-star {
+        float: right;
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: url('../images/ratingstar.png') 0 -16px;
+}
+.krating-star:hover,
+.krating-star:hover ~ .krating-star {
+        background-position: 0 0;
+}
+.krating-star:hover,
+.krating-star:hover ~ .krating-star,
+.krating-input:checked ~ .krating-star {
+        background-position: 0 0;
+}
