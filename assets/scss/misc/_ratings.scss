@@ -3,38 +3,38 @@
  */
 
 // Admin
-.kratingmeta {
+.kpostmeta {
         display: block;
 }
-.kratingmeta label {
+.kpostmeta label {
         display: block;
 }
-.krating {
+.kpostmeta .krating {
         position: relative;
         overflow: hidden;
         display: inline-block;
         clear: both;
 }
-.krating-input {
+.kpostmeta .krating-input {
         display: none;
         float: left;
         width: 16px;
         height: 16px;
 }
-.krating-star {
+.kpostmeta .krating-star {
         float: right;
         display: block;
         width: 16px;
         height: 16px;
         background: url('../images/ratingstar.png') 0 -16px;
 }
-.krating-star:hover,
-.krating-star:hover ~ .krating-star {
+.kpostmeta .krating-star:hover,
+.kpostmeta .krating-star:hover ~ .krating-star {
         background-position: 0 0;
 }
-.krating-star:hover,
-.krating-star:hover ~ .krating-star,
-.krating-input:checked ~ .krating-star {
+.kpostmeta .krating-star:hover,
+.kpostmeta .krating-star:hover ~ .krating-star,
+.kpostmeta .krating-input:checked ~ .krating-star {
         background-position: 0 0;
 }
 
@@ -43,14 +43,13 @@
 .kreviewstars {
         
 }
-.kstar {
+.kreviewstars .kstar {
         display: block;
         float: left;
         width: 16px;
         height: 16px;
         background: url('../images/ratingstar.png') 0 -16px;
 }
-.kstar.active,
-.kstar.active ~ .kstar {
+.kreviewstars .kstar.active {
         background-position: 0 0;
 }

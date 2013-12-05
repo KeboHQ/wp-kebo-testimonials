@@ -15,9 +15,44 @@
 /*
  * Testimonials
  */
+.ktestimonials {
+        margin: 1em 0;
+}
+.ktestimonials .page-title {
+        margin: 0 0 1em 0;
+        padding: 0 0.625rem;
+}
+.ktestimonials .kcontentbefore {
+        padding: 0 0.625rem;
+}
 
 .ktestimonial {
         border: 1px solid #ccc;
         padding: 1em;
         width: 100%;
+        background: #fff;
+}
+.ktestimonial .kheader {
+        
+}
+.ktestimonial .kcontent {
+        margin: 1em 0;
+}
+.ktestimonial .kcontent img {
+        float: left;
+        margin: 0 1em 1em 0;
+        margin-top: 4px;
+}
+.ktestimonial .kfooter {
+        
+}
+.ktestimonial .kfooter .krating {
+        width: 50%;
+        float: left;
+        padding-top: 3px;
+}
+.ktestimonial .kfooter .kauthor {
+        width: 50%;
+        float: right;
+        text-align: right;
 }
