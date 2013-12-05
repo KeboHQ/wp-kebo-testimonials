@@ -26,6 +26,32 @@ function kbte_flush_rewrite_rules() {
 add_filter( 'admin_init', 'kbte_flush_rewrite_rules' );
 
 /*
+ * Helper Function - Returns Page Title
+ */
+function kbte_get_page_title() {
+    
+    $options = kbte_get_plugin_options();
+    
+    $title = $options['testimonials_archive_page_title'];
+    
+    return esc_html( $title );
+    
+}
+
+/*
+ * Helper Function - Returns Page Content Before
+ */
+function kbte_get_page_content_before() {
+    
+    $options = kbte_get_plugin_options();
+    
+    $content = $options['testimonials_archive_page_content_before'];
+    
+    return wp_filter_post_kses( $content );
+    
+}
+
+/*
  * Helper Function - Returns Reviewer Name
  */
 function kbte_get_reviewer_name() {
