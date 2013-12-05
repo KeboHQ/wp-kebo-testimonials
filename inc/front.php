@@ -96,7 +96,7 @@ function kbte_testimonials_archive_query( $query ) {
         // Ascending order (1 first, etc).
         //$query->set( 'order', 'ASC' );
         // User Option for Posts per Page
-        $query->set( 'posts_per_archive_page', $options['testimonials_general_posts_per_page'] );
+        $query->set( 'posts_per_archive_page', $options['testimonials_archive_posts_per_page'] );
         
     }
     
