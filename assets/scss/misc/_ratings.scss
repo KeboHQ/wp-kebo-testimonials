@@ -2,6 +2,7 @@
  * Rating Input Styles
  */
 
+// Admin
 .kratingmeta {
         display: block;
 }
@@ -34,5 +35,22 @@
 .krating-star:hover,
 .krating-star:hover ~ .krating-star,
 .krating-input:checked ~ .krating-star {
+        background-position: 0 0;
+}
+
+// Frontend
+
+.kreviewstars {
+        
+}
+.kstar {
+        display: block;
+        float: left;
+        width: 16px;
+        height: 16px;
+        background: url('../images/ratingstar.png') 0 -16px;
+}
+.kstar.active,
+.kstar.active ~ .kstar {
         background-position: 0 0;
 }
