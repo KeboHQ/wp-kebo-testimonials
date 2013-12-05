@@ -54,7 +54,7 @@ function kbte_get_page_content_before() {
 /*
  * Helper Function - Returns Reviewer Name
  */
-function kbte_get_reviewer_name() {
+function kbte_get_review_name() {
     
     global $post;
     
@@ -69,7 +69,7 @@ function kbte_get_reviewer_name() {
 /*
  * Helper Function - Returns Reviewer URL
  */
-function kbte_get_reviewer_url() {
+function kbte_get_review_url() {
     
     global $post;
     
@@ -84,7 +84,7 @@ function kbte_get_reviewer_url() {
 /*
  * Helper Function - Returns Reviewer Rating
  */
-function kbte_get_reviewer_rating() {
+function kbte_get_review_rating() {
     
     global $post;
     
@@ -93,5 +93,39 @@ function kbte_get_reviewer_rating() {
     $rating = ( isset( $kbte_custom_meta['reviewer_rating'] ) ) ? $kbte_custom_meta['reviewer_rating'] : null ;
     
     return absint( $rating );
+    
+}
+
+/*
+ * Helper Function - Render Review Rating Stars
+ */
+function kbte_get_review_rating_stars() {
+    
+    $total_stars = 5;
+    
+    $rating = kbte_get_review_rating();
+    
+    // Begin Output Buffering
+    ob_start();
+    
+    ?>
+
+    <span class="kreviewstars" title="<?php echo sprintf( __('%d out of %d stars', 'kbte'), $rating, $total_stars ); ?>">
+        
+        <?php for ( $i = 1; $i <= 5; $i++ ) { ?>
+        
+            <span class="kstar<?php if ( $rating >= $i ) { echo ' active'; } ?>"></span>
+            
+        <?php } ?>
+            
+    </span>
+
+    <?php
+    
+    // End Output Buffering and Clear Buffer
+    $output = ob_get_contents();
+    ob_end_clean();
+        
+    return $output;
     
 }
