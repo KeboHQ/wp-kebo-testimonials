@@ -36,7 +36,7 @@ if ( is_multisite() ) {
         // Delete all Posts with our Custom Post Type
         $args = array(
             'post_type' => 'kbte_testimonials',
-            'post_status' => array( 'any', 'revision' ),
+            'post_status' => 'any',
             'posts_per_page' => -1,
         );
 
@@ -72,7 +72,7 @@ if ( is_multisite() ) {
     // Delete all Posts with our Custom Post Type
     $args = array(
 	'post_type' => 'kbte_testimonials',
-        'post_status' => array( 'any', 'revision' ),
+        'post_status' => 'any',
         'posts_per_page' => -1,
     );
     
