@@ -98,7 +98,8 @@ function kbte_plugin_options_init() {
             'kbte_testimonials_archive', // Settings section.
             array( // Args to pass to render function
                 'name' => 'testimonials_archive_posts_per_page',
-                'help_text' => __('Number of Testimonials to show per page. Must be between 2-50.', 'kbte')
+                'label_text' => __('Must be between 1-50.', 'kbte'),
+                'help_text' => __('Number of Testimonials to show per page. Set to -1 to display all on a single page.', 'kbte')
             )
     );
     
@@ -164,11 +165,14 @@ function kbte_options_render_text_input( $args ) {
     
     $name = esc_attr( $args['name'] );
     
+    $label_text = ( $args['label_text'] ) ? esc_attr( $args['label_text'] ) : '' ;
+    
     $help_text = ( $args['help_text'] ) ? esc_html( $args['help_text'] ) : null;
         
     ?>
     <label class="description" for="<?php echo $name; ?>">
-    <input type="text" name="kbte_plugin_options[<?php echo $name; ?>]" id="<?php echo $name; ?>" value="<?php echo esc_attr( $options[ $name ] ); ?>" />
+        <input type="text" name="kbte_plugin_options[<?php echo $name; ?>]" id="<?php echo $name; ?>" value="<?php echo esc_attr( $options[ $name ] ); ?>" />
+        <?php echo $label_text; ?>
     </label>
     <?php if ( $help_text ) { ?>
         <span class="howto"><?php echo esc_html( $help_text ); ?></span>
@@ -264,7 +268,7 @@ function kbte_options_render_textarea( $args ) {
     ?>
         
     <div style="max-width: 800px;">
-        <?php wp_editor( $options[ $name ], 'kbte_plugin_options[' . $name . ']', $args ); ?>
+        <?php wp_editor( esc_textarea( $options[ $name ] ), 'kbte_plugin_options[' . $name . ']', $args ); ?>
     </div>
         
     <?php if ( $help_text ) { ?>
@@ -304,7 +308,7 @@ function kbte_plugin_options_validate( $input ) {
         }
 
         // If 'count' is below 1 reset to 1.
-        if ( 2 >= intval( $input['testimonials_archive_posts_per_page'] ) ) {
+        if ( 1 >= intval( $input['testimonials_archive_posts_per_page'] ) && -1 != intval( $input['testimonials_archive_posts_per_page'] ) ) {
             $input['testimonials_archive_posts_per_page'] = 10;
         }
 
