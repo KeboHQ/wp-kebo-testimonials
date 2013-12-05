@@ -18,8 +18,10 @@ function kbte_testimonials_admin_columns( $columns ) {
     
     // Add Required Columns
     $columns['cb'] = '<input type="checkbox" />';
-    $columns['title'] = __( 'Client Name(s)', 'kebo' );
-    $columns['date'] = __( 'Date', 'kebo' );
+    $columns['details'] = __( 'Details', 'kbte' );
+    $columns['title'] = __( 'Title', 'kbte' );
+    $columns['rating'] = __( 'Rating', 'kbte' );
+    $columns['date'] = __( 'Date', 'kbte' );
     
     return $columns;
     
@@ -39,6 +41,61 @@ function kbte_testimonials_sortable_admin_columns( $columns ) {
     
 }	
 add_filter( 'manage_edit-kbte_testimonials_sortable_columns', 'kbte_testimonials_sortable_admin_columns' );
+
+/*
+ * Adds data to the custom admin columns.
+ */
+function kbte_testimonials_admin_column_values( $column, $post_id ) {
+    
+    global $post;
+    
+    $kbte_custom_meta = get_post_meta( $post->ID, 'kbte_testimonials_post_meta', true );
+    
+    switch ( $column ) {
+
+        case 'details' :
+            echo '<a href="' . kbte_get_review_url() .'" target="_blank">' . kbte_get_review_name() . '</a>';
+            echo '<br>';
+            echo '<a href="mailto:' . kbte_get_review_email() .'">' . kbte_get_review_email() . '</a>';
+            echo '<br>';
+        break;
+    
+        case 'rating' :
+            if ( kbte_get_review_rating() ) {
+                echo kbte_get_review_rating_stars();
+            } else {
+                echo __('Not Rated', 'kbte');
+            }
+        break;
+
+    }
+    
+}
+add_action( 'manage_kbte_testimonials_posts_custom_column' , 'kbte_testimonials_admin_column_values', 10, 2 );
+
+/*
+ * Adds custom Orderby data
+ */
+function kbte_testimonials_admin_column_orderby( $vars ) {
+    
+    if ( !is_admin() ) {
+        return $vars;
+    }
+    
+    if ( ! isset( $vars['orderby'] ) ) {
+        return $vars;
+    }
+    
+    if ( 'title' == $vars['orderby'] ) {
+	$vars = array_merge( $vars, array(
+            'orderby' => 'title'
+	));
+    }
+    
+    return $vars;
+    
+}
+add_filter( 'request', 'kbte_testimonials_admin_column_orderby' );
 
 /**
  * Custom Post Type Archive Pagination Limits.
