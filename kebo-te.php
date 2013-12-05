@@ -69,6 +69,11 @@ function kbte_plugin_setup() {
     require_once( KBTE_PATH . 'inc/meta.php' );
     
     /*
+     * Include View Class.
+     */
+    require_once( KBTE_PATH . 'inc/classes/Views.php' );
+    
+    /*
      * Include Shortcode.
      */
     require_once( KBTE_PATH . 'inc/shortcode.php' );
