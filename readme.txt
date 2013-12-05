@@ -58,12 +58,6 @@ If you choose to delete this plugin, we will remove all trace of data created by
 == Changelog ==
 
 = 0.5.0 =
-* Note: Improved compatibility, getting ready to make translation possible.
-* Note: Improved readme information.
-* Bug Fix: Fixed Twitter account link on plugin settings page.
-* Bug Fix: Added default settings to the Widget.
-
-= 0.5.0 =
 * Note: Initial version.
 
 == Styling the Widget ==
