@@ -10,7 +10,7 @@ function kbte_testimonials_add_client_meta() {
     
     add_meta_box(
         'kbte_testimonials_post_meta',
-        __('Reviewer Details', 'kbte'),
+        __('Testimonial Details', 'kbte'),
         'kbte_testimonials_client_details_render',
         'kbte_testimonials',
         'side',
@@ -27,23 +27,52 @@ function kbte_testimonials_client_details_render() {
     // Defaults if not set
     $name = ( isset( $custom_post_meta['reviewer_name'] ) ) ? $custom_post_meta['reviewer_name'] : '' ;
     $url = ( isset( $custom_post_meta['reviewer_url'] ) ) ? $custom_post_meta['reviewer_url'] : '' ;
-    $rating = ( isset( $custom_post_meta['reviewer_rating'] ) ) ? $custom_post_meta['reviewer_name'] : 0 ;
+    $rating = ( isset( $custom_post_meta['reviewer_rating'] ) ) ? $custom_post_meta['reviewer_rating'] : null ;
     ?>
-    <table style="width: 100%;">
-        <tr>
-            <td>
-                <label for="kbte_reviewer_name"><?php echo __('Name: (optional)', 'kbte'); ?></label>
-                <input type="text" id="kbte_reviewer_name" name="kbte_reviewer_name" value="<?php echo $name; ?>" style="width:100%;" /><br><br>
-                
-                <label for="kbte_reviewer_url"><?php echo __('URL: (optional)', 'kbte'); ?></label>
-                <input type="text"  id="kbte_reviewer_url" name="kbte_reviewer_url" value="<?php echo $url; ?>" style="width:100%;" /><br><br>
-                
-                <label for="kbte_reviewer_rating"><?php echo __('Rating: (optional)', 'kbte'); ?></label>
-                <input type="text"  id="kbte_reviewer_rating" name="kbte_reviewer_rating" value="<?php echo $rating; ?>" style="width:100%;" />
-                <?php wp_nonce_field('kebo_testimonials_meta-site','kbte-testimonials-meta'); ?>
-            </td>
-        </tr>
-    </table>
+    <div class="ktestimonialmeta">
+        
+        <p>
+            <label for="kbte_reviewer_name"><strong><?php echo __('Name: (optional)', 'kbte'); ?></strong></label>
+        </p>
+        
+        <p>
+            <input type="text" id="kbte_reviewer_name" name="kbte_reviewer_name" value="<?php echo $name; ?>" />
+        </p>
+        
+        <p>
+            <label for="kbte_reviewer_url"><strong><?php echo __('URL: (optional)', 'kbte'); ?></strong></label>
+        </p>
+        
+        <p>
+            <input type="text" id="kbte_reviewer_url" name="kbte_reviewer_url" value="<?php echo $url; ?>" />
+        </p>
+        
+        <p>
+            <label><strong><?php echo __('Rating: (optional)', 'kbte'); ?></strong></label>
+        </p>
+        
+        <div class="krating">
+            
+            <input type="radio" id="kbte_rating_5" class="krating-input" name="kbte_reviewer_rating" value="5" <?php checked( $rating, 5 ); ?>>
+            <label for="kbte_rating_5" class="krating-star"></label>
+            
+            <input type="radio" id="kbte_rating_4" class="krating-input" name="kbte_reviewer_rating" value="4" <?php checked( $rating, 4 ); ?>>
+            <label for="kbte_rating_4" class="krating-star"></label>
+            
+            <input type="radio" id="kbte_rating_3" class="krating-input" name="kbte_reviewer_rating" value="3" <?php checked( $rating, 3 ); ?>>
+            <label for="kbte_rating_3" class="krating-star"></label>
+            
+            <input type="radio" id="kbte_rating_2" class="krating-input" name="kbte_reviewer_rating" value="2" <?php checked( $rating, 2 ); ?>>
+            <label for="kbte_rating_2" class="krating-star"></label>
+            
+            <input type="radio" id="kbte_rating_1" class="krating-input" name="kbte_reviewer_rating" value="1" <?php checked( $rating, 1 ); ?>>
+            <label for="kbte_rating_1" class="krating-star"></label>
+            
+        </div>
+        
+        <?php wp_nonce_field( 'kebo_testimonials_meta-site', 'kbte-testimonials-meta' ); ?>
+        
+    </div>
     <?php
     
 }
@@ -77,6 +106,13 @@ function kbte_save_testimonials_client_details( $post_id ) {
                 if ( isset( $_POST['kbte_reviewer_url'] ) && !empty( $_POST['kbte_reviewer_url'] ) && filter_var( $_POST['kbte_reviewer_url'], FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED )) {
                     
                     $data['reviewer_url'] = $_POST['kbte_reviewer_url'];
+                    
+                }
+                
+                // Store data in post meta table if present in post data
+                if ( isset( $_POST['kbte_reviewer_rating'] ) && ! empty( $_POST['kbte_reviewer_rating'] ) ) {
+                    
+                    $data['reviewer_rating'] = absint( $_POST['kbte_reviewer_rating'] );
                     
                 }
                 
