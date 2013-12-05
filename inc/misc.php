@@ -3,6 +3,11 @@
  * Kebo Testimonials - Misc/Helper Functions
  */
 
+if ( ! defined( 'KBTE_VERSION' ) ) {
+    header( 'HTTP/1.0 403 Forbidden' );
+    die;
+}
+
 /**
  * Flush Rewrite Rules.
  * Use if slug changes or plugin is installed/uninstalled.
