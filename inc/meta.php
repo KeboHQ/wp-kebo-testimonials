@@ -16,7 +16,7 @@ function kbte_testimonials_add_client_meta() {
     add_meta_box(
         'kbte_testimonials_post_meta',
         __('Testimonial Details', 'kbte'),
-        'kbte_testimonials_client_details_render',
+        'kbte_testimonials_reviewer_details_render',
         'kbte_testimonials',
         'side',
         'core'
@@ -25,15 +25,15 @@ function kbte_testimonials_add_client_meta() {
 }
 add_action( 'admin_init', 'kbte_testimonials_add_client_meta' );
 
-function kbte_testimonials_client_details_render() {
+function kbte_testimonials_reviewer_details_render() {
     
-    $custom_post_meta = get_post_meta( get_the_ID(), 'kbte_testimonials_post_meta', true );
+    $kbte_custom_meta = get_post_meta( get_the_ID(), '_kbte_testimonials_meta_details', true );
+    $rating = absint( get_post_meta( get_the_ID(), '_kbte_testimonials_meta_rating', true ) );
     
     // Defaults if not set
-    $name = ( isset( $custom_post_meta['reviewer_name'] ) ) ? $custom_post_meta['reviewer_name'] : '' ;
-    $email = ( isset( $custom_post_meta['reviewer_email'] ) ) ? $custom_post_meta['reviewer_email'] : '' ;
-    $url = ( isset( $custom_post_meta['reviewer_url'] ) ) ? $custom_post_meta['reviewer_url'] : '' ;
-    $rating = ( isset( $custom_post_meta['reviewer_rating'] ) ) ? $custom_post_meta['reviewer_rating'] : null ;
+    $name = ( isset( $kbte_custom_meta['reviewer_name'] ) ) ? $kbte_custom_meta['reviewer_name'] : '' ;
+    $email = ( isset( $kbte_custom_meta['reviewer_email'] ) ) ? $kbte_custom_meta['reviewer_email'] : '' ;
+    $url = ( isset( $kbte_custom_meta['reviewer_url'] ) ) ? $kbte_custom_meta['reviewer_url'] : '' ;
     ?>
     <div class="kpostmeta">
         
@@ -130,14 +130,17 @@ function kbte_save_testimonials_client_details( $post_id ) {
                     
                 }
                 
-                // Store data in post meta table if present in post data
-                if ( isset( $_POST['kbte_reviewer_rating'] ) && ! empty( $_POST['kbte_reviewer_rating'] ) ) {
+                // Update Combined Details
+                update_post_meta( $post_id, '_kbte_testimonials_meta_details', $data );
+                
+                // Store rating on its own, so that we can use it for queries
+                if ( isset( $_POST['kbte_reviewer_rating'] ) && ! empty( $_POST['kbte_reviewer_rating'] ) && is_numeric( $_POST['kbte_reviewer_rating'] ) ) {
                     
-                    $data['reviewer_rating'] = absint( $_POST['kbte_reviewer_rating'] );
+                    $rating = absint( $_POST['kbte_reviewer_rating'] );
+                    
+                    update_post_meta( $post_id, '_kbte_testimonials_meta_rating', $rating );
                     
                 }
-                
-                update_post_meta( $post_id, 'kbte_testimonials_post_meta', $data );
 
             }
             
