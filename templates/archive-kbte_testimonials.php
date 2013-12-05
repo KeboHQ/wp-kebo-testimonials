@@ -11,65 +11,81 @@ get_header();
 
     <div class="ktestimonials">
         
-            <?php
-            $options = kbte_get_plugin_options();
-            if ( ! empty( $options['testimonials_general_page_title'] ) ) {
-            ?>
-            <header class="page-header">
-                <h1 class="page-title">
-                    <?php echo $options['testimonials_general_page_title']; ?>
-                </h1>
-            </header><!-- .page-header -->
+            <?php if ( kbte_get_page_title() ) { ?>
+                <header class="page-header">
+                    <h1 class="page-title">
+                        <?php echo kbte_get_page_title(); ?>
+                    </h1>
+                </header><!-- .page-header -->
             <?php } ?>
 
-            <?php //echo wpautop( $options['feature_testimonials_intro_text'] ); ?>
+            <?php echo wpautop( kbte_get_page_content_before() ); ?>
 
             <?php if ( have_posts() ) : ?>
 
-                <div class="ktestimonials-container">
-
-                    <?php while ( have_posts()) : the_post(); ?>
+                <div class="ktestimonials">
                     
-                        <?php
-                        $custom_post_meta = get_post_meta( get_the_ID(), 'kbte_testimonials_post_meta', true );
-    
-                        // Defaults if not set
-                        $name = ( isset( $custom_post_meta['reviewer_name'] ) ) ? $custom_post_meta['reviewer_name'] : '' ;
-                        $url = ( isset( $custom_post_meta['reviewer_url'] ) ) ? $custom_post_meta['reviewer_url'] : '' ;
-                        $rating = ( isset( $custom_post_meta['reviewer_rating'] ) ) ? $custom_post_meta['reviewer_rating'] : 0 ;
-                        ?>
+                    <ul class="small-kebo-grid-1 medium-kebo-grid-2 large-kebo-grid-3">
 
-                        <div id="post-<?php the_ID(); ?>" <?php post_class('ktestimonial'); ?> style="width: 100%; overflow: hidden;">
+                        <?php while ( have_posts()) : the_post(); ?>
 
-                            <div itemscope itemtype="http://schema.org/Review">
+                            <li>
+
+                                <div id="post-<?php the_ID(); ?>" <?php post_class('ktestimonial'); ?>>
                                 
-                                <div itemprop="itemReviewed" itemscope itemtype="http://schema.org/WebPage">
-                                    Title: <span itemprop="name"><?php the_title(); ?></span>
+                                    <div itemscope itemtype="http://schema.org/Review">
+
+                                        <div class="kheader">
+                                            
+                                            <div itemprop="itemReviewed" itemscope itemtype="http://schema.org/WebPage">
+                                                <meta itemprop="url" content="<?php echo get_option('siteurl'); ?>">
+                                            </div>
+                                            
+                                            <span itemprop="name"><strong><?php the_title(); ?></strong></span> by
+
+                                            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                                <a href="<?php echo kbte_get_review_url(); ?>" target="_blank"><span itemprop="name"><?php echo kbte_get_review_name(); ?></span></a>
+                                            </span>
+                                            
+                                        </div>
+
+                                        
+
+                                        <?php
+                                        // check if the post has a Post Thumbnail assigned to it.
+                                        if ( has_post_thumbnail() ) {
+                                            the_post_thumbnail( 'thumbnail' );
+                                        }
+                                        ?>
+
+                                        <div itemprop="reviewBody">
+                                            <?php the_content(); ?>
+                                        </div>
+
+                                        <?php
+                                        if ( kbte_get_review_rating() ) {
+                                            echo kbte_get_review_rating_stars();
+                                        }
+                                        ?>
+
+                                        <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                                            <meta itemprop="worstRating" content="1" />
+                                            <meta itemprop="ratingValue" content="<?php echo kbte_get_review_rating(); ?>" />
+                                            <meta itemprop="bestRating" content="5">
+                                        </div>
+
+                                    </div>
+                                    
                                 </div>
-                                
-                                <?php
-                                // check if the post has a Post Thumbnail assigned to it.
-                                if ( has_post_thumbnail() ) {
-                                    the_post_thumbnail( 'thumbnail' );
-                                }
-                                ?>
-                                
-                                <div itemprop="author" itemscope itemtype="http://schema.org/Person">
-                                    Author: <span itemprop="name">Peter Booker</span>
-                                </div>
-                                
-                                <div itemprop="reviewBody">
-                                    <?php the_content(); ?>
-                                </div>
-                                
-                            </div> 
 
-                        </div><!-- #post-<?php the_ID(); ?> -->
+                            </li><!-- #post-<?php the_ID(); ?> -->
 
-                    <?php endwhile; ?>
+                        <?php endwhile; ?>
+                        
+                    </ul>
                         
                 </div><!-- .ktestimonials-container -->
-                        
+                
                 <?php kbte_pagination_nav(); ?>
 
             <?php else : ?>
