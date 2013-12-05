@@ -323,6 +323,9 @@ function kbte_plugin_options_validate( $input ) {
     
     $options = kbte_get_plugin_options();
     
+    // Flush Rules to ensure slug is correct
+    kbte_flush_rewrite_rules();
+    
     // Combine Inputs with currently Saved data, for multiple option page compability
     $options = wp_parse_args( $input, $options );
     
