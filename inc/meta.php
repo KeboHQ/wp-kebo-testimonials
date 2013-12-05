@@ -26,10 +26,11 @@ function kbte_testimonials_client_details_render() {
     
     // Defaults if not set
     $name = ( isset( $custom_post_meta['reviewer_name'] ) ) ? $custom_post_meta['reviewer_name'] : '' ;
+    $email = ( isset( $custom_post_meta['reviewer_email'] ) ) ? $custom_post_meta['reviewer_email'] : '' ;
     $url = ( isset( $custom_post_meta['reviewer_url'] ) ) ? $custom_post_meta['reviewer_url'] : '' ;
     $rating = ( isset( $custom_post_meta['reviewer_rating'] ) ) ? $custom_post_meta['reviewer_rating'] : null ;
     ?>
-    <div class="ktestimonialmeta">
+    <div class="kpostmeta">
         
         <p>
             <label for="kbte_reviewer_name"><strong><?php echo __('Name: (optional)', 'kbte'); ?></strong></label>
@@ -37,6 +38,14 @@ function kbte_testimonials_client_details_render() {
         
         <p>
             <input type="text" id="kbte_reviewer_name" name="kbte_reviewer_name" value="<?php echo $name; ?>" />
+        </p>
+        
+        <p>
+            <label for="kbte_reviewer_email"><strong><?php echo __('Email: (optional)', 'kbte'); ?></strong></label>
+        </p>
+        
+        <p>
+            <input type="text" id="kbte_reviewer_email" name="kbte_reviewer_email" value="<?php echo $email; ?>" />
         </p>
         
         <p>
@@ -96,9 +105,16 @@ function kbte_save_testimonials_client_details( $post_id ) {
                 $data = array();
                 
                 // Store data in post meta table if present in post data
-                if ( isset( $_POST['kbte_reviewer_name'] ) && !empty( $_POST['kbte_reviewer_name'] ) ) {
+                if ( isset( $_POST['kbte_reviewer_name'] ) && ! empty( $_POST['kbte_reviewer_name'] ) ) {
                     
                     $data['reviewer_name'] = $_POST['kbte_reviewer_name'];
+                    
+                }
+                
+                // Store data in post meta table if present in post data
+                if ( isset( $_POST['kbte_reviewer_email'] ) && ! empty( $_POST['kbte_reviewer_email'] ) && is_email( $_POST['kbte_reviewer_email'] ) ) {
+                    
+                    $data['reviewer_email'] = $_POST['kbte_reviewer_email'];
                     
                 }
                 
