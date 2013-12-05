@@ -103,7 +103,7 @@ function kbte_save_testimonials_client_details( $post_id ) {
                 }
                 
                 // Store data in post meta table if present in post data
-                if ( isset( $_POST['kbte_reviewer_url'] ) && !empty( $_POST['kbte_reviewer_url'] ) && filter_var( $_POST['kbte_reviewer_url'], FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED )) {
+                if ( isset( $_POST['kbte_reviewer_url'] ) && ! empty( $_POST['kbte_reviewer_url'] ) && filter_var( $_POST['kbte_reviewer_url'], FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED ) ) {
                     
                     $data['reviewer_url'] = $_POST['kbte_reviewer_url'];
                     
