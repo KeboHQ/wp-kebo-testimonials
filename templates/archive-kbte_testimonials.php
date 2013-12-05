@@ -28,8 +28,6 @@ get_header();
                     <ul class="small-kebo-grid-1 medium-kebo-grid-2 large-kebo-grid-3">
 
                         <?php while ( have_posts()) : the_post(); ?>
-                        
-                            <li>
 
                                 <div id="post-<?php the_ID(); ?>" <?php post_class('ktestimonial'); ?>>
                                 
