@@ -29,6 +29,8 @@ get_header();
 
                         <?php while ( have_posts()) : the_post(); ?>
 
+                            <li>
+                        
                                 <div id="post-<?php the_ID(); ?>" <?php post_class('ktestimonial'); ?>>
                                 
                                     <div itemscope itemtype="http://schema.org/Review">
@@ -72,9 +74,9 @@ get_header();
 
                                     </div>
                                     
-                                </div>
+                                </div><!-- #post-<?php the_ID(); ?> -->
 
-                            </li><!-- #post-<?php the_ID(); ?> -->
+                            </li>
 
                         <?php endwhile; ?>
                         
