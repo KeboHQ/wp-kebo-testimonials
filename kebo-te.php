@@ -169,7 +169,7 @@ add_action( 'admin_enqueue_scripts', 'kbte_enqueue_backend' );
  */
 function kbte_add_plugin_link( $links ) {
     
-    $links[] = '<a href="' . admin_url( 'options-general.php?page=kbte-testimonials' ) . '">' . __( 'Settings', 'kbte' ) . '</a>';
+    $links[] = '<a href="' . admin_url( 'edit.php?post_type=kbte_testimonials&page=kbte-testimonials' ) . '">' . __( 'Settings', 'kbte' ) . '</a>';
     return $links;
     
 }
