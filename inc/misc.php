@@ -67,6 +67,21 @@ function kbte_get_review_name() {
 }
 
 /*
+ * Helper Function - Returns Reviewer Email
+ */
+function kbte_get_review_email() {
+    
+    global $post;
+    
+    $kbte_custom_meta = get_post_meta( $post->ID, 'kbte_testimonials_post_meta', true );
+    
+    $email = ( isset( $kbte_custom_meta['reviewer_email'] ) ) ? $kbte_custom_meta['reviewer_email'] : '' ;
+    
+    return esc_html( $email );
+    
+}
+
+/*
  * Helper Function - Returns Reviewer URL
  */
 function kbte_get_review_url() {
