@@ -30,8 +30,34 @@ if ( is_multisite() ) {
 
         switch_to_blog( $blog->blog_id );
 
-        // Delete the Options we registered.
-        //delete_option('kebo_twitter_options');
+        // Delete the Option we registered.
+        delete_option( 'kbte_plugin_options' );
+
+        // Delete all Posts with our Custom Post Type
+        $args = array(
+            'post_type' => 'kbte_testimonials',
+            'post_status' => array( 'any', 'revision' ),
+            'posts_per_page' => -1,
+        );
+
+        // Query for posts
+        $kbte_posts = new WP_Query( $args );
+
+        if ( ! isset( $kbte_posts ) || ! is_object( $kbte_posts->posts ) ) {
+            return;
+        }
+
+        // Loop each post and delete
+        foreach ( $kbte_posts->posts as $post ) {
+
+            // Ensure it is the correct post type
+            if ( 'kbte_testimonials' == $post->post_type ) {
+
+                wp_delete_post( $post->ID, true );
+
+            }
+
+        }
         
     }
 
@@ -41,6 +67,32 @@ if ( is_multisite() ) {
 } else {
 
     // Delete the Option we registered.
-    //delete_option('kebo_twitter_options');
+    delete_option( 'kbte_plugin_options' );
+    
+    // Delete all Posts with our Custom Post Type
+    $args = array(
+	'post_type' => 'kbte_testimonials',
+        'post_status' => array( 'any', 'revision' ),
+        'posts_per_page' => -1,
+    );
+    
+    // Query for posts
+    $kbte_posts = new WP_Query( $args );
+    
+    if ( ! isset( $kbte_posts ) || ! is_object( $kbte_posts->posts ) ) {
+        return;
+    }
+    
+    // Loop each post and delete
+    foreach ( $kbte_posts->posts as $post ) {
+        
+        // Ensure it is the correct post type
+        if ( 'kbte_testimonials' == $post->post_type ) {
+            
+            wp_delete_post( $post->ID, true );
+            
+        }
+        
+    }
     
 }
