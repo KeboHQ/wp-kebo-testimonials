@@ -54,18 +54,50 @@ function kbte_testimonials_admin_column_values( $column, $post_id ) {
     switch ( $column ) {
 
         case 'details' :
-            echo '<a href="' . kbte_get_review_url() .'" target="_blank">' . kbte_get_review_name() . '</a>';
-            echo '<br>';
-            echo '<a href="mailto:' . kbte_get_review_email() .'">' . kbte_get_review_email() . '</a>';
-            echo '<br>';
+            
+            // Prepare Meta
+            $name = kbte_get_review_name();
+            $email = kbte_get_review_email();
+            $url = kbte_get_review_url();
+            
+            // Output Name
+            if ( ! empty ( $name ) && ! empty ( $url ) ) {
+                
+                echo '<a href="' . $url .'" target="_blank">' . $name . '</a><br>';
+                
+            } elseif ( ! empty ( $name ) ) {
+                
+                echo '<span>' . $name . '</span><br>';
+                
+            }
+            
+            // Output Email
+            if ( ! empty( $email ) ) {
+                
+                echo '<a href="mailto:' . $email .'">' . $email . '</a>';
+                
+            }
+            
+            if ( empty ( $name ) && empty ( $email ) ) {
+                
+                echo '-';
+                
+            }
+            
         break;
     
         case 'rating' :
+            
             if ( kbte_get_review_rating() ) {
+                
                 echo kbte_get_review_rating_stars();
+                
             } else {
+                
                 echo __('Not Rated', 'kbte');
+                
             }
+            
         break;
 
     }
