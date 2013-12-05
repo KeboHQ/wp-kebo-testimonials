@@ -12,14 +12,14 @@ get_header();
     <div class="ktestimonials">
         
             <?php if ( kbte_get_page_title() ) { ?>
-                <header class="page-header">
-                    <h1 class="page-title">
-                        <?php echo kbte_get_page_title(); ?>
-                    </h1>
-                </header><!-- .page-header -->
+                <h2 class="page-title">
+                    <?php echo kbte_get_page_title(); ?>
+                </h2>
             <?php } ?>
 
-            <?php echo wpautop( kbte_get_page_content_before() ); ?>
+            <div class="kcontentbefore">
+                <?php echo wpautop( kbte_get_page_content_before() ); ?>
+            </div>
 
             <?php if ( have_posts() ) : ?>
 
@@ -41,32 +41,30 @@ get_header();
                                                 <meta itemprop="url" content="<?php echo get_option('siteurl'); ?>">
                                             </div>
                                             
-                                            <span itemprop="name"><strong><?php the_title(); ?></strong></span> by
-
-                                            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                                                <a href="<?php echo kbte_get_review_url(); ?>" target="_blank"><span itemprop="name"><?php echo kbte_get_review_name(); ?></span></a>
-                                            </span>
+                                            <span itemprop="name"><strong><?php the_title(); ?></strong></span>
                                             
                                         </div>
 
-                                        
-
-                                        <?php
-                                        // check if the post has a Post Thumbnail assigned to it.
-                                        if ( has_post_thumbnail() ) {
-                                            the_post_thumbnail( 'thumbnail' );
-                                        }
-                                        ?>
-
-                                        <div itemprop="reviewBody">
+                                        <div class="kcontent" itemprop="reviewBody">
+                                            <?php if ( has_post_thumbnail() ) { the_post_thumbnail( 'thumbnail' ); } ?>
                                             <?php the_content(); ?>
                                         </div>
 
-                                        <?php
-                                        if ( kbte_get_review_rating() ) {
-                                            echo kbte_get_review_rating_stars();
-                                        }
-                                        ?>
+                                        <div class="kfooter">
+                                            
+                                            <div class="krating">
+                                            <?php if ( kbte_get_review_rating() ) {
+                                                echo kbte_get_review_rating_stars();
+                                            } ?>
+                                            </div>
+                                            
+                                            <div class="kauthor" title="<?php echo kbte_get_review_name() . ' - ' . kbte_get_review_url(); ?>">
+                                                <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                                    <a href="<?php echo kbte_get_review_url(); ?>" target="_blank"><span itemprop="name"><?php echo kbte_get_review_name(); ?></span></a>
+                                                </span>
+                                            </div>
+                                            
+                                        </div>
 
                                         <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
                                             <meta itemprop="worstRating" content="1" />
