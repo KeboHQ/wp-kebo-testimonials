@@ -50,10 +50,13 @@ function kbte_pagination_nav() {
 
     ?>
     <div class="knav" role="navigation">
+        
         <h1 class="screen-reader-text"><?php _e( 'Testimonials navigation', 'kbte' ); ?></h1>
+        
         <div class="kpagination">
             <?php echo $links; ?>
         </div><!-- .pagination -->
+        
     </div><!-- .navigation -->
     <?php
     
