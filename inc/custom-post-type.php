@@ -58,7 +58,7 @@ function kbte_create_testimonials_cpt() {
         'taxonomies' => array(''),
         'menu_icon' => '',
         'rewrite' => array(
-            'slug' => $options['testimonials_general_page_slug'], // TODO: change to dynamic $slug
+            'slug' => $options['testimonials_archive_page_slug'], // TODO: change to dynamic $slug
             'feeds' => true, // rss feeds
             'pages' => true, // prepares for pagination
             'with_front' => false // use url prefix like /blog etc.
