@@ -64,7 +64,7 @@ function kbte_get_review_name() {
     
     global $post;
     
-    $kbte_custom_meta = get_post_meta( $post->ID, 'kbte_testimonials_post_meta', true );
+    $kbte_custom_meta = get_post_meta( $post->ID, '_kbte_testimonials_meta_details', true );
     
     $name = ( isset( $kbte_custom_meta['reviewer_name'] ) ) ? $kbte_custom_meta['reviewer_name'] : '' ;
     
@@ -79,7 +79,7 @@ function kbte_get_review_email() {
     
     global $post;
     
-    $kbte_custom_meta = get_post_meta( $post->ID, 'kbte_testimonials_post_meta', true );
+    $kbte_custom_meta = get_post_meta( $post->ID, '_kbte_testimonials_meta_details', true );
     
     $email = ( isset( $kbte_custom_meta['reviewer_email'] ) ) ? $kbte_custom_meta['reviewer_email'] : '' ;
     
@@ -94,7 +94,7 @@ function kbte_get_review_url() {
     
     global $post;
     
-    $kbte_custom_meta = get_post_meta( $post->ID, 'kbte_testimonials_post_meta', true );
+    $kbte_custom_meta = get_post_meta( $post->ID, '_kbte_testimonials_meta_details', true );
     
     $url = ( isset( $kbte_custom_meta['reviewer_url'] ) ) ? $kbte_custom_meta['reviewer_url'] : '' ;
     
@@ -109,11 +109,11 @@ function kbte_get_review_rating() {
     
     global $post;
     
-    $kbte_custom_meta = get_post_meta( $post->ID, 'kbte_testimonials_post_meta', true );
+    $rating = get_post_meta( $post->ID, '_kbte_testimonials_meta_rating', true );
     
-    $rating = ( isset( $kbte_custom_meta['reviewer_rating'] ) ) ? $kbte_custom_meta['reviewer_rating'] : null ;
+    $rating = ( $rating ) ? absint( $rating ) : null ;
     
-    return absint( $rating );
+    return $rating;
     
 }
 

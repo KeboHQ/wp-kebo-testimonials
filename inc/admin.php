@@ -18,10 +18,10 @@ function kbte_testimonials_admin_columns( $columns ) {
     
     // Add Required Columns
     $columns['cb'] = '<input type="checkbox" />';
-    $columns['details'] = __( 'Details', 'kbte' );
-    $columns['title'] = __( 'Title', 'kbte' );
-    $columns['rating'] = __( 'Rating', 'kbte' );
-    $columns['date'] = __( 'Date', 'kbte' );
+    $columns['title'] = __('Title');
+    $columns['details'] = __('Details', 'kbte');
+    $columns['rating'] = __('Rating', 'kbte');
+    $columns['date'] = __('Date');
     
     return $columns;
     
@@ -35,6 +35,7 @@ function kbte_testimonials_sortable_admin_columns( $columns ) {
     
     // Add Required Columns
     $columns['title'] = 'title';
+    $columns['rating'] = 'rating';
     $columns['date'] = 'date';
     
     return $columns;
@@ -48,8 +49,6 @@ add_filter( 'manage_edit-kbte_testimonials_sortable_columns', 'kbte_testimonials
 function kbte_testimonials_admin_column_values( $column, $post_id ) {
     
     global $post;
-    
-    $kbte_custom_meta = get_post_meta( $post->ID, 'kbte_testimonials_post_meta', true );
     
     switch ( $column ) {
 
@@ -121,6 +120,13 @@ function kbte_testimonials_admin_column_orderby( $vars ) {
     if ( 'title' == $vars['orderby'] ) {
 	$vars = array_merge( $vars, array(
             'orderby' => 'title'
+	));
+    }
+    
+    if ( 'rating' == $vars['orderby'] ) {
+	$vars = array_merge( $vars, array(
+            'meta_key' => '_kbte_testimonials_meta_rating',
+            'orderby' => 'meta_value_num'
 	));
     }
     
