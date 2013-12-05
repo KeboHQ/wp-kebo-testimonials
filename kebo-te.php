@@ -112,6 +112,52 @@ function kbte_plugin_setup() {
 }
 add_action( 'plugins_loaded', 'kbte_plugin_setup', 15 );
 
+
+/**
+ * Register plugin scripts and styles.
+ */
+function kbte_register_files() {
+
+    // Register Styles
+    wp_register_style( 'kbte-front', KBTE_URL . 'assets/css/front.css', array(), KBTE_VERSION, 'all' );
+    wp_register_style( 'kbte-admin', KBTE_URL . 'assets/css/admin.css', array(), KBTE_VERSION, 'all' );
+        
+    // Register Scripts
+    wp_register_script( 'responsive-slides', KBTE_URL . 'assets/js/vendor/responsiveslides.min.js', array( 'jquery' ), KBTE_VERSION, false );
+        
+}
+add_action( 'wp_enqueue_scripts', 'kbte_register_files' );
+add_action( 'admin_enqueue_scripts', 'kbte_register_files' );
+    
+/**
+ * Enqueue frontend plugin scripts and styles.
+ */
+function kbte_enqueue_frontend() {
+    
+    global $post;
+    
+    if ( isset( $post->post_type ) && 'kbte_testimonials' == $post->post_type ) {
+        
+        wp_enqueue_style( 'kbte-front' );
+        
+    }
+        
+}
+add_action( 'wp_enqueue_scripts', 'kbte_enqueue_frontend' );
+    
+/**
+ * Enqueue backend plugin scripts and styles.
+ */
+function kbte_enqueue_backend( $hook_suffix ) {
+        
+    // Enqueue on all pages
+    wp_enqueue_style( 'kbte-admin' );
+    
+    // TODO: Only enqueue on required pages
+        
+}
+add_action( 'admin_enqueue_scripts', 'kbte_enqueue_backend' );
+
 /**
  * Add a link to the plugin screen, to allow users to jump straight to the settings page.
  */
