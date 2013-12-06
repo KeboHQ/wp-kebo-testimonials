@@ -13,7 +13,7 @@
 @import "misc/admin-icon";
 
 /*
- * Testimonials Admin - Post Meta
+ * Admin - Post Meta
  */
 
 #kbte_reviewer_name,
@@ -28,11 +28,21 @@
 @import "misc/ratings";
 
 /*
- * Admin Testimonials Listing
+ * Testimonials Listing
  */
 .post-type-kbte_testimonials .fixed .column-details {
         width: 15%;
 }
 .post-type-kbte_testimonials .fixed .column-rating {
         width: 10%;
+}
+
+/*
+ * Settings Page
+ */
+.kbte_testimonials_page_kbte-testimonials .kresponsivecolumns {
+        margin-right: 2em;
+}
+.kbte_testimonials_page_kbte-testimonials .kresponsivecolumns:last-of-type {
+        margin-right: 0;
 }
