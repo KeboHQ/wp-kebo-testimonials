@@ -128,7 +128,8 @@ function kbte_register_files() {
     wp_register_style( 'kbte-admin', KBTE_URL . 'assets/css/admin.css', array(), KBTE_VERSION, 'all' );
         
     // Register Scripts
-    wp_register_script( 'responsive-slides', KBTE_URL . 'assets/js/vendor/responsiveslides.min.js', array( 'jquery' ), KBTE_VERSION, false );
+    wp_register_script( 'responsive-slides', KBTE_URL . 'assets/js/responsiveslides.min.js', array( 'jquery' ), KBTE_VERSION, false );
+    wp_register_script( 'kbte-foundation-abide', KBTE_URL . 'assets/js/foundation.abide.custom.js', array( 'jquery' ), KBTE_VERSION, false );
         
 }
 add_action( 'wp_enqueue_scripts', 'kbte_register_files' );
