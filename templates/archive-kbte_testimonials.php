@@ -25,31 +25,47 @@ get_header();
 
                 <div class="ktestimonials">
                     
-                    <ul class="small-kebo-grid-1 medium-kebo-grid-2 large-kebo-grid-3">
+                    <?php
+                    $columns = kbte_get_columns();
+                    ?>
+                    
+                    <ul class="small-kebo-grid-<?php echo $columns['small']; ?> medium-kebo-grid-<?php echo $columns['medium']; ?> large-kebo-grid-<?php echo $columns['large']; ?>">
 
                         <?php while ( have_posts()) : the_post(); ?>
 
                             <li>
+                                
+                                <?php
+                                // check if post has reviewer name
+                                if ( kbte_get_review_name() ) {
+                                    $classes = 'ktestimonial has-name';
+                                } else {
+                                    $classes = 'ktestimonial';
+                                }
+                                ?>
                         
-                                <div id="post-<?php the_ID(); ?>" <?php post_class('ktestimonial'); ?>>
+                                <div id="post-<?php the_ID(); ?>" <?php post_class( $classes ); ?>>
                                 
                                     <div itemscope itemtype="http://schema.org/Review">
 
-                                        <div class="kheader">
-                                            
-                                            <div itemprop="itemReviewed" itemscope itemtype="http://schema.org/WebPage">
-                                                <meta itemprop="url" content="<?php echo get_option('siteurl'); ?>">
+                                        <div class="kbody">
+                                        
+                                            <div class="kheader">
+
+                                                <div itemprop="itemReviewed" itemscope itemtype="http://schema.org/WebPage">
+                                                    <meta itemprop="url" content="<?php echo get_option('siteurl'); ?>">
+                                                </div>
+
+                                                <span itemprop="name"><strong><?php the_title(); ?></strong></span>
+
+                                            </div>
+
+                                            <div class="kcontent" itemprop="reviewBody">
+                                                <?php the_content(); ?>
                                             </div>
                                             
-                                            <span itemprop="name"><strong><?php the_title(); ?></strong></span>
-                                            
                                         </div>
-
-                                        <div class="kcontent" itemprop="reviewBody">
-                                            <?php if ( has_post_thumbnail() ) { the_post_thumbnail( 'thumbnail' ); } ?>
-                                            <?php the_content(); ?>
-                                        </div>
-
+                                        
                                         <div class="kfooter">
                                             
                                             <div class="krating">
@@ -108,4 +124,5 @@ get_header();
     
 </div><!-- .ktestimonials -->
 
+<?php //get_sidebar(); ?>
 <?php get_footer(); ?>
