@@ -37,19 +37,54 @@
 .ktestimonials .kcontentbefore {
         padding: 0 0.625rem;
 }
-
 .ktestimonials .ktestimonial {
+        width: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+}
+.ktestimonials .ktestimonial .kbody {
         border: 1px solid #ccc;
         padding: 1em;
-        width: 100%;
         background: #fff;
-        overflow: hidden;
+        position: relative;
+}
+.ktestimonials .ktestimonial.has-name .kbody:before {
+    border-color: #DDDDDD rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 12px 11px 11px;
+    content: "";
+    height: 0;
+    right: 39px;
+    position: absolute;
+    top: 100%;
+    width: 0;
+}
+.ktestimonials .ktestimonial.has-name .kbody:after {
+    border-color: #FFFFFF rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    height: 0;
+    right: 40px;
+    position: absolute;
+    top: 100%;
+    width: 0;
 }
 .ktestimonial .kheader {
         
 }
 .ktestimonial .kcontent {
+        margin: 1em 0 0 0;
+}
+.ktestimonial .kcontent p {
         margin: 1em 0;
+}
+.ktestimonial .kcontent p:first-of-type {
+        margin-top: 0;
+}
+.ktestimonial .kcontent p:last-of-type {
+        margin-bottom: 0;
 }
 .ktestimonial .kcontent img {
         float: left;
@@ -58,6 +93,7 @@
 }
 .ktestimonial .kfooter {
         clear: both;
+        padding: 1em 1em 0 1em;
 }
 .ktestimonial .kfooter .krating {
         width: 50%;
