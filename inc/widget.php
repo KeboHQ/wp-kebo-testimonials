@@ -37,6 +37,10 @@ class Kbte_Testimonials_Widget extends WP_Widget {
      */
     static $printed_admin_js;
     
+    static $enqueued_frontend_js;
+    
+    static $printed_frontend_js;
+    
     /**
      * Setup the Widget
      */
@@ -60,7 +64,45 @@ class Kbte_Testimonials_Widget extends WP_Widget {
      */
     function widget( $args, $instance ) {
         
-        // TODO output widget html
+        extract( $args, EXTR_SKIP );
+        
+        /**
+         * Setup an instance of the View class.
+         * Allow customization using a filter.
+         */
+        $view = new Kbso_View(
+            apply_filters(
+                'kbte_testimonials_widget_form_view_dir',
+                KBTE_PATH . 'views/form',
+                $widget_id
+            )
+        );
+        
+        $classes[] = 'kform';
+        if ( is_rtl() ) {
+            $classes[] = 'rtl';
+        }
+            
+        $view
+            ->set_view( 'form' )
+            ->set( 'widget_id', $widget_id )
+            ->set( 'classes', $classes )
+            ->set( 'instance', $instance )
+            ->set( 'before_widget', $before_widget )
+            ->set( 'before_title', $before_title )
+            ->set( 'title', $instance['title'] )
+            ->set( 'after_title', $after_title )
+            ->set( 'after_widget', $after_widget )
+            ->set( 'view', $view )
+            ->render();
+        
+
+        
+        /*
+         * Ensure relevant scripts are added to page.
+         */
+        add_action( 'wp_footer', array( $this, 'enqueued_frontend_js' ) );
+        add_action( 'wp_footer', array( $this, 'printed_frontend_js' ) );
         
     }
     
@@ -75,10 +117,6 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         ?>
         <label for="<?php echo $this->get_field_id('title'); ?>">
             <p><?php _e('Title', 'kbte'); ?>: <input style="width: 100%;" type="text" value="<?php echo $instance['title']; ?>" name="<?php echo $this->get_field_name('title'); ?>" id="<?php echo $this->get_field_id('title'); ?>"></p>
-        </label>
-
-        <label class="count" for="<?php echo $this->get_field_id('count'); ?>">
-            <p><?php _e('Number to show', 'kbte'); ?>: <input style="width: 28px;" type="text" value="<?php echo $instance['count']; ?>" name="<?php echo $this->get_field_name('count'); ?>" id="<?php echo $this->get_field_id('count'); ?>"> <span><?php _e('Range 1-50', 'kbte') ?></span></p>
         </label>
         <?php
         
@@ -97,24 +135,47 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         // Update text inputs and remove HTML.
         $instance['title'] = wp_filter_nohtml_kses($new_instance['title']);
 
-        // Check 'count' is numeric.
-        if ( is_numeric($new_instance['count'] ) ) {
-
-            // If 'count' is above 50 reset to 50.
-            if ( 50 <= intval( $new_instance['count'] ) ) {
-                $new_instance['count'] = 50;
-            }
-
-            // If 'count' is below 1 reset to 1.
-            if ( 1 >= intval($new_instance['count'] ) ) {
-                $new_instance['count'] = 1;
-            }
-
-            // Update 'count' using intval to remove decimals.
-            $instance['count'] = intval( $new_instance['count'] );
-        }
-
         return $instance;
+        
+    }
+    
+    static function enqueued_frontend_js() {
+        
+        if ( true === self::$enqueued_frontend_js ) {
+            return;
+        }
+        
+        self::$enqueued_frontend_js = true;
+        wp_enqueue_script( 'kbte-foundation-abide' );
+        
+    }
+    
+    static function printed_frontend_js() {
+        
+        if ( true === self::$printed_frontend_js ) {
+            return;
+        }
+        
+        self::$printed_frontend_js = true;
+        
+        // Begin Output Buffering
+        ob_start();
+        ?>
+
+        <script type="text/javascript">
+            
+            jQuery( document ).ready( function() {
+                jQuery( document ).foundation();
+            });
+            
+        </script>
+
+        <?php
+        // End Output Buffering and Clear Buffer
+        $output = ob_get_contents();
+        ob_end_clean();
+        
+        echo $output;
         
     }
         
