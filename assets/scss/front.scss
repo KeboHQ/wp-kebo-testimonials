@@ -74,6 +74,10 @@
 .ktestimonialform {
         
 }
+.ktestimonialform,
+.ktestimonialform * {
+    @include box-sizing();
+}
 .ktestimonialform label {
         display: block;
         margin-bottom: 0.5em;
@@ -82,7 +86,6 @@
 .ktestimonialform textarea {
         width: 100%;
         margin-bottom: 1em;
-        @include box-sizing();
 }
 .ktestimonialform .error input,
 .ktestimonialform .error textarea {
