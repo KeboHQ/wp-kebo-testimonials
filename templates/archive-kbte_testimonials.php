@@ -7,7 +7,7 @@
 get_header();
 ?>
 
-<div class="kcontainer" style="overflow: hidden;">
+<div class="kcontainer">
 
     <div class="ktestimonials">
         
