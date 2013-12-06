@@ -26,7 +26,7 @@ if ( ! empty( $title ) ) {
 
 ?>
 
-<form id="form_kbte_review" method="post" enctype="multipart/form-data" action="" data-abide>
+<form id="form_kbte_review" class="ktestimonialform" method="post" enctype="multipart/form-data" action="" data-abide>
 
 <div class="name-field">
     <label for="field_name"><?php esc_html_e('Name', 'kbte'); ?> <small><?php esc_html_e('required', 'kbte'); ?></small></label>
