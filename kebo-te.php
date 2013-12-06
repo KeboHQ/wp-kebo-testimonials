@@ -74,6 +74,11 @@ function kbte_plugin_setup() {
     require_once( KBTE_PATH . 'inc/classes/Views.php' );
     
     /*
+     * Include Form Data Class.
+     */
+    require_once( KBTE_PATH . 'inc/classes/Data.php' );
+    
+    /*
      * Include Shortcode.
      */
     require_once( KBTE_PATH . 'inc/shortcode.php' );
@@ -108,6 +113,11 @@ function kbte_plugin_setup() {
         require_once( KBTE_PATH . 'inc/pagination.php' );
         
     }
+    
+    /*
+     * Include Form Processing Functions.
+     */
+    require_once( KBTE_PATH . 'inc/form-processing.php' );
     
     /*
      * Include Misc Functions.
