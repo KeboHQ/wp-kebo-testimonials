@@ -104,6 +104,21 @@ function kbte_plugin_options_init() {
     );
     
     /**
+     * General - Responsive Columns
+     */
+    add_settings_field(
+            'testimonials_archive_responsive_columns', // Unique identifier for the field for this section
+            __('Responsive Columns', 'kbte'), // Setting field label
+            'kbte_options_render_responsive_columns_dropdowns', // Function that renders the settings field
+            'kbte-testimonials', // Menu slug
+            'kbte_testimonials_archive', // Settings section.
+            array( // Args to pass to render function
+                'name' => 'testimonials_archive_responsive_columns',
+                'help_text' => __('This changes how many columns are visible for different screen sizes.', 'kbte')
+            )
+    );
+    
+    /**
      * General - Content Before
      */
     add_settings_field(
@@ -144,7 +159,8 @@ function kbte_get_plugin_options() {
         'testimonials_archive_page_title' => __('Testimonials', 'kbte'),
         'testimonials_archive_page_slug' => __('testimonials', 'kbte'),
         'testimonials_archive_posts_per_page' => 10,
-        'testimonials_archive_page_content_before' => null
+        'testimonials_archive_page_content_before' => null,
+        'testimonials_archive_responsive_columns' => array( 1, 2, 3 ),
     );
 
     $defaults = apply_filters( 'kbte_get_plugin_options', $defaults );
@@ -280,6 +296,89 @@ function kbte_options_render_textarea( $args ) {
 }
 
 /**
+ * Returns an array of select inputs for the Responsive Columns dropdown.
+ */
+function kbte_options_responsive_columns_dropdown() {
+    
+    $dropdown = array(
+        array(
+            'value' => 1,
+            'label' => __('1', 'kbte')
+        ),
+        array(
+            'value' => 2,
+            'label' => __('2', 'kbte')
+        ),
+        array(
+            'value' => 3,
+            'label' => __('3', 'kbte')
+        ),
+        array(
+            'value' => 4,
+            'label' => __('4', 'kbte')
+        ),
+    );
+
+    return apply_filters( 'kbte_options_responsive_columns_dropdown', $dropdown );
+    
+}
+
+/**
+ * Renders the Theme dropdown.
+ */
+function kbte_options_render_responsive_columns_dropdowns( $args ) {
+    
+    $options = kbte_get_plugin_options();
+    
+    $name = esc_attr( $args['name'] );
+    
+    $help_text = ( $args['help_text'] ) ? esc_html( $args['help_text'] ) : null;
+    
+    $sizes = array(
+        array(
+            'label' => __('Small', 'kbte'),
+            'value' => $options['testimonials_archive_responsive_columns'][0],
+        ),
+        array(
+            'label' => __('Medium', 'kbte'),
+            'value' => $options['testimonials_archive_responsive_columns'][1],
+        ),
+        array(
+            'label' => __('Large', 'kbte'),
+            'value' => $options['testimonials_archive_responsive_columns'][2],
+        ),
+    );
+    
+    foreach ( $sizes as $size ) {
+    ?>
+        
+        <label class="kresponsivecolumns" for="<?php echo $name; ?>[<?php echo $size['label']; ?>]"><?php echo esc_html( $size['label'] ); ?>
+            <select id="<?php echo $name; ?>[<?php echo $size['label']; ?>]" name="kbte_plugin_options[<?php echo $name; ?>][]">
+            <?php
+            foreach ( kbte_options_responsive_columns_dropdown() as $dropdown ) {
+
+                ?>
+                <option value="<?php echo esc_attr( $dropdown['value'] ); ?>" <?php selected( $dropdown['value'], $size['value'] ); ?>>
+                    <?php echo esc_html( $dropdown['label'] ); ?>
+                </option>
+                <?php
+
+            }
+            ?>
+            </select>
+        </label>
+        
+    <?php } ?>
+        
+    <?php if ( $help_text ) { ?>
+        <span class="howto"><?php echo esc_html( $help_text ); ?></span>
+    <?php } ?>
+        
+    <?php
+        
+}
+
+/**
  * Sanitize and validate form input. Accepts an array, return a sanitized array.
  */
 function kbte_plugin_options_validate( $input ) {
@@ -315,6 +414,10 @@ function kbte_plugin_options_validate( $input ) {
         // Update 'count' using intval to remove decimals.
         $output['testimonials_archive_posts_per_page'] = intval( $input['testimonials_archive_posts_per_page'] );
         
+    }
+    
+    if ( isset( $input['testimonials_archive_responsive_columns'] ) && ! empty( $input['testimonials_archive_responsive_columns'] ) ) {
+        $output['testimonials_archive_responsive_columns'] = $input['testimonials_archive_responsive_columns'];
     }
     
     if ( isset( $input['testimonials_archive_page_content_before'] ) && ! empty( $input['testimonials_archive_page_content_before'] ) ) {

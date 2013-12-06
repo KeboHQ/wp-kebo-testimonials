@@ -32,6 +32,23 @@ register_activation_hook( __FILE__, 'kbte_flush_rewrite_rules' );
 register_deactivation_hook( __FILE__, 'kbte_flush_rewrite_rules' );
 
 /*
+ * Helper Function - Returns Column Sizes
+ */
+function kbte_get_columns() {
+    
+    $options = kbte_get_plugin_options();
+    
+    $columns = array(
+        'small' => $options['testimonials_archive_responsive_columns'][0],
+        'medium' => $options['testimonials_archive_responsive_columns'][1],
+        'large' => $options['testimonials_archive_responsive_columns'][2],
+    );
+    
+    return $columns;
+    
+}
+
+/*
  * Helper Function - Returns Page Title
  */
 function kbte_get_page_title() {
