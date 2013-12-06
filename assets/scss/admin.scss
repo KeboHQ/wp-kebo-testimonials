@@ -3,6 +3,19 @@
  */
 
 /*
+ * Admin Menu Icon
+ */
+.menu-icon-kbte_testimonials div.wp-menu-image {
+        background: url('../images/icons/admin_menu_icon.png') 0 -32px no-repeat;
+}
+.menu-icon-kbte_testimonials .wp-menu-open div.wp-menu-image {
+        background-position: 0 0;
+}
+.menu-icon-kbte_testimonials:hover div.wp-menu-image {
+        background-position: 0 0;
+}
+
+/*
  * Testimonials Admin - Post Meta
  */
 

@@ -56,3 +56,37 @@
         float: right;
         text-align: right;
 }
+
+/*
+ * General Form
+ */
+
+.ktestimonialform {
+        
+}
+.ktestimonialform label {
+        display: block;
+        margin-bottom: 0.5em;
+}
+.ktestimonialform input,
+.ktestimonialform textarea {
+        width: 100%;
+        margin-bottom: 1em;
+        box-sizing: border-box; /* css3 rec */
+    	-moz-box-sizing: border-box; /* ff2 */
+    	-ms-box-sizing: border-box; /* ie8 */
+    	-webkit-box-sizing: border-box; /* safari3 */
+    	-khtml-box-sizing: border-box; /* konqueror */
+}
+.ktestimonialform .error input,
+.ktestimonialform .error textarea {
+        margin-bottom: 0;
+}
+.ktestimonialform .error {
+        display: block;
+}
+
+/*
+ * Foundation Abide - Error Styles
+ */
+@import "misc/abide";
