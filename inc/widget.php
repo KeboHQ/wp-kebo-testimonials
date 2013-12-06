@@ -97,10 +97,11 @@ class Kbte_Testimonials_Widget extends WP_Widget {
 
         
         /*
-         * Ensure relevant scripts are added to page.
+         * Ensure relevant styles/scripts are added to page.
          */
         add_action( 'wp_footer', array( $this, 'printed_frontend_js' ) );
         wp_enqueue_script( 'kbte-foundation-abide' );
+        wp_enqueue_style( 'kbte-front' );
         
     }
     
