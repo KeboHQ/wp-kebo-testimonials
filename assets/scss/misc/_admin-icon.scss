@@ -1,0 +1,47 @@
+/*
+ * Admin Menu Icon Styles
+ */
+
+/*
+ * Admin Menu Icon
+ */
+
+// Version 3.8+
+.wp-admin .menu-icon-kbte_testimonials div.wp-menu-image:before {
+        font-family: "dashicons";
+        content: "\f125";
+}
+
+// Old Admin Style Compatibility 3.7 to 3.2
+.branch-3-7 .menu-icon-kbte_testimonials div.wp-menu-image,
+.branch-3-6 .menu-icon-kbte_testimonials div.wp-menu-image,
+.branch-3-5 .menu-icon-kbte_testimonials div.wp-menu-image,
+.branch-3-4 .menu-icon-kbte_testimonials div.wp-menu-image,
+.branch-3-3 .menu-icon-kbte_testimonials div.wp-menu-image,
+.branch-3-2 .menu-icon-kbte_testimonials div.wp-menu-image {
+        background: url('../images/icons/admin_menu_icon.png') 0 -32px no-repeat;
+}
+.branch-3-7 .menu-icon-kbte_testimonials div.wp-menu-image:before,
+.branch-3-6 .menu-icon-kbte_testimonials div.wp-menu-image:before,
+.branch-3-5 .menu-icon-kbte_testimonials div.wp-menu-image:before,
+.branch-3-4 .menu-icon-kbte_testimonials div.wp-menu-image:before,
+.branch-3-3 .menu-icon-kbte_testimonials div.wp-menu-image:before,
+.branch-3-2 .menu-icon-kbte_testimonials div.wp-menu-image:before {
+        content: "";
+}
+.branch-3-7 .menu-icon-kbte_testimonials .wp-menu-open div.wp-menu-image,
+.branch-3-6 .menu-icon-kbte_testimonials .wp-menu-open div.wp-menu-image,
+.branch-3-5 .menu-icon-kbte_testimonials .wp-menu-open div.wp-menu-image,
+.branch-3-4 .menu-icon-kbte_testimonials .wp-menu-open div.wp-menu-image,
+.branch-3-3 .menu-icon-kbte_testimonials .wp-menu-open div.wp-menu-image,
+.branch-3-2 .menu-icon-kbte_testimonials .wp-menu-open div.wp-menu-image {
+        background-position: 0 0;
+}
+.branch-3-7 .menu-icon-kbte_testimonials:hover div.wp-menu-image,
+.branch-3-6 .menu-icon-kbte_testimonials:hover div.wp-menu-image,
+.branch-3-5 .menu-icon-kbte_testimonials:hover div.wp-menu-image,
+.branch-3-4 .menu-icon-kbte_testimonials:hover div.wp-menu-image,
+.branch-3-3 .menu-icon-kbte_testimonials:hover div.wp-menu-image,
+.branch-3-2 .menu-icon-kbte_testimonials:hover div.wp-menu-image {
+        background-position: 0 0;
+}

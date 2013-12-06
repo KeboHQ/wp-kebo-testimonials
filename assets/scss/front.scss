@@ -3,6 +3,11 @@
  */
 
 /*
+ * Custom Mixins
+ */
+@import "misc/mixins";
+
+/*
  * Rating System
  */
 @import "misc/ratings";
@@ -18,6 +23,10 @@
 .ktestimonials {
         margin: 1em 0;
 }
+.ktestimonials,
+.ktestimonials * {
+    @include box-sizing();
+}
 .ktestimonials .page-title {
         margin: 0 0 1em 0;
         padding: 0 0.625rem;
@@ -26,11 +35,12 @@
         padding: 0 0.625rem;
 }
 
-.ktestimonial {
+.ktestimonials .ktestimonial {
         border: 1px solid #ccc;
         padding: 1em;
         width: 100%;
         background: #fff;
+        overflow: hidden;
 }
 .ktestimonial .kheader {
         
@@ -72,11 +82,7 @@
 .ktestimonialform textarea {
         width: 100%;
         margin-bottom: 1em;
-        box-sizing: border-box; /* css3 rec */
-    	-moz-box-sizing: border-box; /* ff2 */
-    	-ms-box-sizing: border-box; /* ie8 */
-    	-webkit-box-sizing: border-box; /* safari3 */
-    	-khtml-box-sizing: border-box; /* konqueror */
+        @include box-sizing();
 }
 .ktestimonialform .error input,
 .ktestimonialform .error textarea {
