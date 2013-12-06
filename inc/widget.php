@@ -37,8 +37,6 @@ class Kbte_Testimonials_Widget extends WP_Widget {
      */
     static $printed_admin_js;
     
-    static $enqueued_frontend_js;
-    
     static $printed_frontend_js;
     
     /**
@@ -101,8 +99,8 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         /*
          * Ensure relevant scripts are added to page.
          */
-        add_action( 'wp_footer', array( $this, 'enqueued_frontend_js' ) );
         add_action( 'wp_footer', array( $this, 'printed_frontend_js' ) );
+        wp_enqueue_script( 'kbte-foundation-abide' );
         
     }
     
@@ -133,23 +131,15 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         $instance = $old_instance;
         
         // Update text inputs and remove HTML.
-        $instance['title'] = wp_filter_nohtml_kses($new_instance['title']);
+        $instance['title'] = wp_filter_nohtml_kses( $new_instance['title'] );
 
         return $instance;
         
     }
     
-    static function enqueued_frontend_js() {
-        
-        if ( true === self::$enqueued_frontend_js ) {
-            return;
-        }
-        
-        self::$enqueued_frontend_js = true;
-        wp_enqueue_script( 'kbte-foundation-abide' );
-        
-    }
-    
+    /*
+     * Ensures frontend JavaScript is only printed once.
+     */
     static function printed_frontend_js() {
         
         if ( true === self::$printed_frontend_js ) {
