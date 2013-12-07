@@ -74,9 +74,9 @@ function kbte_plugin_setup() {
     require_once( KBTE_PATH . 'inc/classes/Views.php' );
     
     /*
-     * Include Form Data Class.
+     * Include Form Class.
      */
-    require_once( KBTE_PATH . 'inc/classes/Data.php' );
+    require_once( KBTE_PATH . 'inc/classes/Forms.php' );
     
     /*
      * Include Shortcode.
@@ -115,9 +115,9 @@ function kbte_plugin_setup() {
     }
     
     /*
-     * Include Form Processing Functions.
+     * Include Form Functions.
      */
-    require_once( KBTE_PATH . 'inc/form-processing.php' );
+    require_once( KBTE_PATH . 'inc/forms.php' );
     
     /*
      * Include Misc Functions.
