@@ -1,6 +1,7 @@
 <?php
 /*
- * Class to handle View files. (thanks Zogot)
+ * Kebo View Class. (thanks Zogot)
+ * General Class to handle View Files.
  */
 
 if ( ! defined( 'KBTE_VERSION' ) ) {
