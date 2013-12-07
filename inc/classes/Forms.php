@@ -9,7 +9,7 @@ if ( ! defined( 'KBTE_VERSION' ) ) {
 }
 
 /**
- * Kebo_Data
+ * Kebo_Form
  */
 if ( ! class_exists( 'Kebo_Form' ) ) {
     
