@@ -72,3 +72,22 @@ function kbte_create_testimonials_cpt() {
     
 }
 add_action( 'init', 'kbte_create_testimonials_cpt' );
+
+/*
+ * Register the Testimonials Post Status (Spam)
+ */
+function kbte_create_testimonials_status() {
+
+    register_post_status( 'kbte_spam',
+        array(
+            'label' => _x( 'Spam', 'kbte' ),
+            'public' => true,
+            'exclude_from_search' => false,
+            'show_in_admin_all_list' => true,
+            'show_in_admin_status_list' => true,
+            'label_count' => _n_noop( 'Spam <span class="count">(%s)</span>', 'Spam <span class="count">(%s)</span>', 'kbte' ),
+        )
+    );
+    
+}
+add_action( 'init', 'kbte_create_testimonials_status' );
