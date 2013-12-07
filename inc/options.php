@@ -48,6 +48,16 @@ function kbte_plugin_options_init() {
     );
     
     /**
+     * Section - Anti Spam
+     */
+    add_settings_section(
+            'kbte_testimonials_antispam', // Unique identifier for the settings section
+            __('Anti Spam', 'kbte'), // Section title
+            '__return_false', // Section callback (we don't want anything)
+            'kbte-testimonials' // Menu slug
+    );
+    
+    /**
      * Section - Archive Options
      */
     add_settings_section(
@@ -336,15 +346,15 @@ function kbte_options_render_responsive_columns_dropdowns( $args ) {
     
     $sizes = array(
         array(
-            'label' => __('Small', 'kbte'),
+            'label' => __('Small Screen', 'kbte'),
             'value' => $options['testimonials_archive_responsive_columns'][0],
         ),
         array(
-            'label' => __('Medium', 'kbte'),
+            'label' => __('Medium Screen', 'kbte'),
             'value' => $options['testimonials_archive_responsive_columns'][1],
         ),
         array(
-            'label' => __('Large', 'kbte'),
+            'label' => __('Large Screen', 'kbte'),
             'value' => $options['testimonials_archive_responsive_columns'][2],
         ),
     );
