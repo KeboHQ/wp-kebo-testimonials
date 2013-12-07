@@ -78,16 +78,80 @@ add_action( 'init', 'kbte_create_testimonials_cpt' );
  */
 function kbte_create_testimonials_status() {
 
-    register_post_status( 'kbte_spam',
-        array(
-            'label' => _x( 'Spam', 'kbte' ),
-            'public' => true,
-            'exclude_from_search' => false,
-            'show_in_admin_all_list' => true,
-            'show_in_admin_status_list' => true,
-            'label_count' => _n_noop( 'Spam <span class="count">(%s)</span>', 'Spam <span class="count">(%s)</span>', 'kbte' ),
-        )
+    $args = array(
+        'label' => _x( 'Spam', 'kbte' ),
+        'label_count' => _n_noop( 'Spam <span class="count">(%s)</span>', 'Spam <span class="count">(%s)</span>', 'kbte' ),
+        'public' => true,
+        'show_in_admin_all_list' => true,
+        'show_in_admin_status_list' => true,
+        'exclude_from_search' => false,
     );
     
+    register_post_status( 'kbte_spam', $args );
+
 }
 add_action( 'init', 'kbte_create_testimonials_status' );
+
+/*
+ * Load custom Post Status (kbte_spam) for New Post and Edit Post Screen
+ */
+function kbte_testimonials_load_custom_status_post() {
+
+    global $post;
+    $complete = '';
+    $label = '';
+    
+    if( $post->post_type == 'kbte_testimonials' ) {
+        
+          if( $post->post_status == 'kbte_spam' ) {
+              
+               $complete = ' selected=\"selected\"';
+               $label = '<span id=\"post-status-display\"> ' . __('Spam', 'kbte') . '</span>';
+               
+          }
+          
+          ?>
+          <script type="text/javascript">
+              
+            jQuery(document).ready( function($) {
+                
+                 $("select#post_status").append("<option value=\"kbte_spam\" <?php echo $complete; ?>>Spam</option>");
+                 $(".misc-pub-section label").append("<?php echo $label; ?>");
+                 
+            });
+          
+          </script>
+          <?php
+          
+     }
+
+}
+add_action( 'admin_footer-post.php', 'kbte_testimonials_load_custom_status_post' );
+add_action( 'admin_footer-post-new.php', 'kbte_testimonials_load_custom_status_post' );
+
+/*
+ * Load custom Post Status (kbte_spam) for Post Listing Quick Edit
+ */
+function kbte_testimonials_load_custom_status_edit() {
+
+    global $post;
+    
+    if( $post->post_type == 'kbte_testimonials' ) {
+          
+          ?>
+          <script type="text/javascript">
+
+            jQuery(document).ready( function($){
+
+                $(".inline-edit-status select ").append("<option value=\"kbte_spam\"><?php _e('Spam', 'kbte'); ?></option>");
+
+            });
+
+          </script>
+          <?php
+          
+     }
+
+}
+
+add_action( 'admin_footer-edit.php', 'kbte_testimonials_load_custom_status_edit' );
