@@ -32,6 +32,68 @@ register_activation_hook( __FILE__, 'kbte_flush_rewrite_rules' );
 register_deactivation_hook( __FILE__, 'kbte_flush_rewrite_rules' );
 
 /*
+ * Helper Function - Returns Form Field Defaults
+ */
+function kbte_get_default_form_fields() {
+    
+    $default_fields = array(
+        'title' => array(
+            'label' => __('Title', 'kbte'),
+            'name' => 'title',
+            'type' => 'textinput',
+            'required' => false,
+            'value' => '',
+            'error' => '',
+        ),
+        'name' => array(
+            'label' => __('Name', 'kbte'),
+            'name' => 'name',
+            'type' => 'textinput',
+            'required' => true,
+            'value' => '',
+            'error' => '',
+        ),
+        'email' => array(
+            'label' => __('Email', 'kbte'),
+            'name' => 'email',
+            'type' => 'textinput',
+            'required' => false,
+            'value' => '',
+            'error' => '',
+        ),
+        'url' => array(
+            'label' => __('URL', 'kbte'),
+            'name' => 'url',
+            'type' => 'textinput',
+            'required' => false,
+            'value' => '',
+            'error' => '',
+        ),
+        'review' => array(
+            'label' => __('Review', 'kbte'),
+            'name' => 'review',
+            'type' => 'textarea',
+            'required' => true,
+            'value' => '',
+            'error' => '',
+        ),
+        'rating' => array(
+            'label' => __('Rating', 'kbte'),
+            'name' => 'rating',
+            'type' => 'rating',
+            'required' => false,
+            'value' => '',
+            'error' => '',
+        ),
+    );
+    
+    $fields = apply_filters( 'kbte_testimonials_form_default_fields', $default_fields );
+    
+    return $fields;
+    
+}
+
+/*
  * Helper Function - Returns Column Sizes
  */
 function kbte_get_columns() {
