@@ -80,12 +80,15 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         if ( is_rtl() ) {
             $classes[] = 'rtl';
         }
+        
+        $fields = kbte_get_default_form_fields();
             
         $view
             ->set_view( 'form' )
             ->set( 'widget_id', $widget_id )
             ->set( 'classes', $classes )
             ->set( 'instance', $instance )
+            ->set( 'fields', $fields )
             ->set( 'before_widget', $before_widget )
             ->set( 'before_title', $before_title )
             ->set( 'title', $instance['title'] )
