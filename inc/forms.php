@@ -11,18 +11,20 @@ if ( ! defined( 'KBTE_VERSION' ) ) {
 /*
  * Checks for form data, sends to processing class
  */
-function kbte_check_for_form_data() {
+function kbte_testimonials_check_for_form_data() {
     
     /*
      * Check for Form Submission
      */
-    if ( isset( $_POST['kbte_form'] ) ) {
+    if ( isset( $_POST['kbte_form'] ) && isset( $_POST['_kbte_id'] ) && is_numeric( $_POST['_kbte_id'] ) ) {
         
-        $fields = kbte_get_default_form_fields();
+        $form_id = absint( $_POST['_kbte_id'] );
     
         $kbte_form = new Kebo_Form();
+        
+        $kbte_form->set_ID( $form_id );
 
-        $kbte_form->load_data( $fields );
+        $kbte_form->load_form();
 
         $kbte_form->validate_input();
 
@@ -32,13 +34,9 @@ function kbte_check_for_form_data() {
 
             return $post_id;
 
-        } else {
-
-
-
         }
         
     }
     
 }
-add_action( 'init', 'kbte_check_for_form_data' );
+add_action( 'init', 'kbte_testimonials_check_for_form_data' );
