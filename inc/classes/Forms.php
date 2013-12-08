@@ -56,7 +56,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
          */
         public function new_ID() {
             
-            self::$id_counter++;
+            self::$id_counter = uniqid();
             
             $this->form_id = self::$id_counter;
             
@@ -87,7 +87,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
          */
         public function have_errors() {
             
-            if ( $this->is_error ) {
+            if ( 'true' == $this->is_error ) {
                 
                 return true;
                 
@@ -104,11 +104,11 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
          */
         public function __construct() {
             
-            $this->is_error = false;
+            $this->is_error = 'false';
             
-            $this->is_spam = false;
+            $this->is_spam = 'false';
             
-            $this->is_saved = false;
+            $this->is_saved = 'false';
             
         }
         
@@ -118,10 +118,8 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
         public function get_fields() {
             
             if ( isset( $this->form_id ) ) {
-            
-                $form_fields = $this->form_fields;
                 
-                return $form_fields[ $this->form_id ];
+                return $this->form_fields;
             
             } else {
                 
@@ -155,7 +153,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                 
                 $this->is_saved = $form_data[ $this->form_id ]['options']['is_saved'];
             
-                return;
+                return true;
             
             } else {
                 
@@ -181,7 +179,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
             
             $saved_form_data = get_option( 'kebo_form_data' );
             
-            if ( false === $saved_form_data ) {
+            if ( false == $saved_form_data || empty( $saved_form_data ) ) {
                 
                 $form_data[ $this->form_id ] = $this_form;
                 
@@ -198,120 +196,6 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
         }
         
         /*
-         * Validate Fields
-         * Uses common names
-         */
-        public function validate_fields( $fields ) {
-            
-            switch ( $fields->name ) {
-                
-                case 'title':
-                    
-                    $fields->value = ( isset( $_POST['kbte_form']['title'] ) ) ? sanitize_text_field( $_POST['kbte_form']['title'] ) : '' ;
-                    
-                    if ( ! empty( $fields->value ) && true == $fields->required ) {
-                        
-                        $fields->error = 'required';
-                        
-                    }
-                    
-                    break;
-                
-                case 'name':
-                    
-                    $fields->value = ( isset( $_POST['kbte_form']['name'] ) ) ? sanitize_text_field( $_POST['kbte_form']['name'] ) : '' ;
-                    
-                    if ( ! empty( $fields->value ) && true == $fields->required ) {
-                        
-                        $fields->error = 'required';
-                        
-                    }
-                    
-                    break;
-                
-                case 'url':
-                    
-                    $fields->value = ( isset( $_POST['kbte_form']['url'] ) ) ? sanitize_text_field( $_POST['kbte_form']['url'] ) : '' ;
-                    
-                    if ( ! filter_var( $fields->value, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED ) ) {
-                        $fields->error = 'invalid';
-                    } elseif ( ! empty( $fields->value ) && true == $fields->required ) {
-                        
-                        $fields->error = 'required';
-                        
-                    }
-                    
-                    break;
-                
-                default:
-                    
-                case 'email':
-                    
-                    $fields->value = ( isset( $_POST['kbte_form']['email'] ) ) ? sanitize_email( $_POST['kbte_form']['email'] ) : '' ;
-                    
-                    if ( ! is_email( $fields->value ) ) {
-                        
-                        $fields->error = 'invalid';
-                        
-                    } elseif ( ! empty( $fields->value ) && true == $fields->required ) {
-                        
-                        $fields->error = 'required';
-                        
-                    }
-                    
-                    break;
-                
-                default:
-                    
-                case 'review':
-                    
-                    $fields->value = ( isset( $_POST['kbte_form']['review'] ) ) ? wp_strip_all_tags( $_POST['kbte_form']['review'] ) : '' ;
-                    
-                    if ( ! empty( $fields->value ) && true == $fields->required ) {
-                        
-                        $fields->error = 'required';
-                        
-                    }
-                    
-                    break;
-                
-                default:
-                    
-                case 'rating':
-                    
-                    $fields->value = ( isset( $_POST['kbte_form']['rating'] ) ) ? absint( $_POST['kbte_form']['rating'] ) : '' ;
-                    
-                    if ( ! is_numeric( $fields->value ) ) {
-                        
-                        $fields->error = 'invalid';
-                        
-                    } elseif ( ! empty( $fields->value ) && true == $fields->required ) {
-                        
-                        $fields->error = 'required';
-                        
-                    }
-                    
-                    break;
-                
-                default:
-                    
-                    $fields->value = ( isset( $_POST['kbte_form']['review'] ) ) ? wp_strip_all_tags( $_POST['kbte_form']['review'] ) : '' ;
-                    
-                    if ( ! empty( $fields->value ) && true == $fields->required ) {
-                        
-                        $fields->error = 'required';
-                        
-                    }
-                    
-                    break;
-                
-            }
-            
-            return $fields;
-            
-        }
-        
-        /*
          * Validate POST Data
          */
         public function validate_input() {
@@ -319,57 +203,44 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
             /*
              * Check the nonce
              */
-            if ( ! wp_verify_nonce( $_POST['_kbte_form'], 'kbte_form_submit') ) {
-                
-                $this->is_error = true;
-                
-                return;
-                
+            if ( ! wp_verify_nonce( $_POST['_kbte_form'], 'kbte_form_submit' ) ) {
+
+                $this->is_error = 'true';
+
             }
-            
+
             /*
              * Check if the form was submitted too fast for a human.
+             * current time is less than form time + 3 seconds.
              */
             if ( time() < ( $_POST['_kbte_time'] + 3 ) ) {
-                
-                $this->is_spam = true;
-                
+
+                $this->is_spam = 'true';
+
             }
-            
+
             /*
              * Check the POST came from our site.
              */
             if ( ( isset( $_SERVER['HTTP_REFERER'] ) && stristr( $_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST'] ) ) ) {
-                
-                $this->is_spam = true;
-                
+
+                $this->is_spam = 'true';
+
             }
             
-            if ( is_array( $this->form_fields ) ) {
+            $this->form_fields = kbte_testimonials_form_validation( $this->form_fields );
+            
+            foreach ( $this->form_fields as $field ) {
                 
-                foreach ( $this->form_fields as $field ) {
-
-                    if ( empty( $field->value ) && true == $field->required ) {
-                        $field->error = 'required';
-                    }
+                if ( isset( $field['error'] ) && ! empty( $field['error'] ) ) {
                     
-                    if ( empty( $field->value ) && true == $field->required ) {
-                        $field->error = 'required';
-                    }
-
+                    $this->is_error = 'true';
+                    
                 }
                 
             }
             
-            $this->form_fields['title']['value'] = ( isset( $_POST['kbte_form']['title'] ) ) ? sanitize_text_field( $_POST['kbte_form']['title'] ) : '' ;
-            
-            $this->form_fields['name']['value'] = ( isset( $_POST['kbte_form']['name'] ) ) ? sanitize_text_field( $_POST['kbte_form']['name'] ) : '' ;
-            
-            $this->form_fields['url']['value'] = ( isset( $_POST['kbte_form']['url'] ) ) ? esc_url( sanitize_text_field( $_POST['kbte_form']['url'] ) ) : '' ;
-            
-            $this->form_fields['email']['value'] = ( isset( $_POST['kbte_form']['email'] ) && is_email( $_POST['kbte_form']['email'] ) ) ? sanitize_email( $_POST['kbte_form']['email'] ) : '' ;
-            
-            $this->form_fields['review']['value'] = ( isset( $_POST['kbte_form']['review'] ) ) ? wp_strip_all_tags( $_POST['kbte_form']['review'] ) : '' ;
+            $this->save_form();
             
             return;
             
@@ -392,12 +263,10 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                 'reviewer_email' => $fields['email']['value'],
             );
             
-            $rating = 5;
-            
             /*
              * Check for spam
              */
-            if ( true == $this->is_spam ) {
+            if ( 'true' == $this->is_spam ) {
                 $status = 'kbte_spam';
             }
             
@@ -422,7 +291,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                 'comment_status' => 'closed',
                 'ping_status' => 'closed',
                 'post_author' => $author, // Administrator is creating the page
-                'post_title' => wp_strip_all_tags( $fields['title']['value'] ),
+                'post_title' => ( isset( $fields['title']['value'] ) ) ? $fields['title']['value'] : __('No Title - Name: ', 'kbte') . $fields['name']['value'],
                 'post_content' => wp_strip_all_tags( $fields['review']['value'] ),
                 'post_status' => $status,
                 'post_type' => 'kbte_testimonials'
@@ -431,7 +300,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
             /*
              * Check for WP Error
              */
-            if ( true !== $this->is_error ) {
+            if ( 'true' != $this->is_error ) {
             
                 $post_id = wp_insert_post( $post, true );
             
@@ -450,26 +319,33 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                 
                 }
                 
-                if ( ! empty( $rating ) ) {
+                if ( ! empty( $fields['title']['value'] ) ) {
                     
-                    update_post_meta( $post_id, '_kbte_testimonials_meta_rating', $rating );
+                    update_post_meta( $post_id, '_kbte_testimonials_meta_rating', $fields['title']['value'] );
                     
                 }
                 
-                $this->is_saved = true;
+                $this->is_saved = 'true';
+                
+                //wp_mail( $to, $subject, $message, $headers );
                 
             } else {
                 
                 // was error
-                $this->is_saved = false;
+                $this->is_saved = 'false';
                 
                 return;
                 
             }
             
-            foreach ( $fields as $key => $field ) {
-                $fields[ $key ]['value'] = '';
-                $fields[ $key ]['error'] = '';
+            /*
+             * Clear form values after data is saved
+             */
+            foreach ( $fields as $field ) {
+                
+                $fields[ $field['name'] ]['value'] = '';
+                $fields[ $field['name'] ]['error'] = '';
+                
             }
             
             $this->set_fields( $fields );
