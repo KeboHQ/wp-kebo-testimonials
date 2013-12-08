@@ -37,7 +37,7 @@ function kbte_testimonials_settings_page_render() {
         <?php screen_icon('options-general'); ?>
         <h2><?php _e('Testimonials - Settings', 'kbte'); ?></h2>
         <?php settings_errors( 'kbte-testimonials' ); ?>
-
+        
         <form method="post" action="options.php">
             <?php
             settings_fields('kbte_options');
