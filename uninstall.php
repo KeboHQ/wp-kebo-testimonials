@@ -32,6 +32,7 @@ if ( is_multisite() ) {
 
         // Delete the Option we registered.
         delete_option( 'kbte_plugin_options' );
+        delete_option( 'kebo_form_data' );
 
         // Delete all Posts with our Custom Post Type
         $args = array(
@@ -68,6 +69,7 @@ if ( is_multisite() ) {
 
     // Delete the Option we registered.
     delete_option( 'kbte_plugin_options' );
+    delete_option( 'kebo_form_data' );
     
     // Delete all Posts with our Custom Post Type
     $args = array(
