@@ -287,7 +287,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                 
             }
             
-            $post = array(
+            $post_data = array(
                 'comment_status' => 'closed',
                 'ping_status' => 'closed',
                 'post_author' => $author, // Administrator is creating the page
@@ -302,7 +302,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
              */
             if ( 'true' != $this->is_error ) {
             
-                $post_id = wp_insert_post( $post, true );
+                $post_id = wp_insert_post( $post_data, true );
             
             } else {
                 
@@ -343,8 +343,8 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
              */
             foreach ( $fields as $field ) {
                 
-                $fields[ $field['name'] ]['value'] = '';
-                $fields[ $field['name'] ]['error'] = '';
+                $fields[ $field['name'] ]['value'] = null;
+                $fields[ $field['name'] ]['error'] = null;
                 
             }
             
