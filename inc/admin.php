@@ -51,7 +51,7 @@ function kbte_testimonials_admin_column_values( $column, $post_id ) {
     global $post;
     
     switch ( $column ) {
-
+        
         case 'details' :
             
             // Prepare Meta
