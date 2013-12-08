@@ -133,6 +133,21 @@
 .ktestimonialform .error {
         display: block;
 }
+.ktestimonialform .kmessage {
+        font-size: 0.8em;
+        padding: 0.4em 0.8em;
+        border: 1px solid #ccc;
+        margin-bottom: 1em;
+        text-align: center;
+}
+.ktestimonialform .kmessage.error {
+        background: #FF9E9E;
+        border-color: darken( #FF9E9E, 10% );
+}
+.ktestimonialform .kmessage.success {
+        background: #9EFFA1;
+        border-color: darken( #9EFFA1, 50% );
+}
 
 /*
  * Foundation Abide - Error Styles
