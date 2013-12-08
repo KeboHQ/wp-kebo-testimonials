@@ -143,7 +143,7 @@ function kbte_testimonials_admin_query( $query ) {
     // Testimonials Admin Query
     if ( is_admin() && $query->is_main_query() ) {
 
-        // Set Testimonials per Page as per user option
+        // Edit the Query Vars for the Admin Post Lists
         if ( isset( $query->query_vars['post_type'] ) && ( 'kbte_testimonials' == $query->query_vars['post_type'] ) ) {
 
             // Orders by the Menu Order attribute

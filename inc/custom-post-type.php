@@ -81,8 +81,8 @@ function kbte_create_testimonials_status() {
     $args = array(
         'label' => _x( 'Spam', 'kbte' ),
         'label_count' => _n_noop( 'Spam <span class="count">(%s)</span>', 'Spam <span class="count">(%s)</span>', 'kbte' ),
-        'public' => true,
-        'show_in_admin_all_list' => true,
+        'public' => false,
+        'show_in_admin_all_list' => false,
         'show_in_admin_status_list' => true,
         'exclude_from_search' => false,
     );
