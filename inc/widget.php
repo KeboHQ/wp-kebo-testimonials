@@ -27,10 +27,8 @@ class Kbte_Testimonials_Widget extends WP_Widget {
      * Default Widget Options
      */
     public $default_options = array(
-        'accounts' => null,
         'title' => null,
-        'type' => 'tweets',
-        'form_id' => null,
+        'form_id' => null, // should automatically be generated
         'form_fields' => array( 'name', 'review' ),
     );
     
@@ -69,59 +67,52 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         // Add Defaults.
         $instance = wp_parse_args( $instance, $this->default_options );
         
-        $classes[] = 'kform';
+        $classes[] = 'ktestimonialform';
         if ( is_rtl() ) {
             $classes[] = 'rtl';
         }
         
+        //print_r( get_option('kebo_form_data') );
+        
         // Create new Form
         $kbte_form = new Kebo_Form();
+            
+        $kbte_form->set_ID( $instance['form_id'] );
+            
+        // Fetch existing form fields
+        $kbte_form->load_form();
         
-        if ( ! isset( $instance['form_id'] ) ) {
-        
-            // Get a unique ID
-            $form_id = $kbte_form->new_ID();
-
-            $instance['form_id'] = $form_id;
+        if ( 'true' == $kbte_form->is_saved || 'true' == $kbte_form->is_error ) {
             
-            $default_fields = kbte_get_default_form_fields();
+            $form_fields = $kbte_form->form_fields;
             
-            $form_fields = apply_filters( 'kbte_testimonials_new_form_fields', $default_fields, $form_id, $widget_id );
-            
-            $kbte_form->set_fields( $form_fields );
-            
-            $kbte_form->save_form();
-        
         } else {
             
-            $form_id = $instance['form_id'];
-            
-            $kbte_form->set_ID( $form_id );
-            
-            // Fetch existing form fields
-            $kbte_form->load_form();
+            $form_fields = kbte_get_default_form_fields();
             
         }
         
         // If no Form ID was set, something has gone wrong.
-        if ( ! isset( $form_id ) ) {
+        if ( ! isset( $instance['form_id'] ) ) {
             
             return __('Oops, there has been an error.', 'kbte') . ' ' . __('No Form ID was set.', 'kbte');
             
         }
         
-        // Remove unwanted Form Fields.
-        foreach ( $form_fields as $field ) {
-            
-            if ( ! in_array( $field['name'], $instance['form_fields'] ) ) {
-                
-                unset( $form_fields[ $field['name'] ] );
-                
-            }
-            
-        }
+        if ( isset( $form_fields ) && is_array( $form_fields ) ) {
         
-        $kbte_form->set_fields( $form_fields );
+            // Remove unwanted Form Fields.
+            foreach ( $form_fields as $field ) {
+
+                if ( ! in_array( $field['name'], $instance['form_fields'] ) ) {
+
+                    unset( $form_fields[ $field['name'] ] );
+
+                }
+
+            }
+        
+        }
         
         // If no Form Fields were set, something has gone wrong.
         if ( ! isset( $form_fields ) ) {
@@ -153,7 +144,7 @@ class Kbte_Testimonials_Widget extends WP_Widget {
             ->set( 'instance', $instance )
             ->set( 'antispam', $antispam )
             ->set( 'fields', $form_fields )
-            ->set( 'form_id', $form_id )
+            ->set( 'form_id', $instance['form_id'] )
             ->set( 'is_saved', $kbte_form->is_saved )
             ->set( 'is_error', $kbte_form->is_error )
             ->set( 'before_widget', $before_widget )
@@ -164,7 +155,23 @@ class Kbte_Testimonials_Widget extends WP_Widget {
             ->set( 'view', $view )
             ->render();
         
+        // Reset saved status, or error status, if needed
 
+        $kbte_form->is_saved = 'false';
+        $kbte_form->is_error = 'false';
+        
+        /*
+         * Clear error values, as we have already displayed them
+         */
+        foreach ( $form_fields as $field ) {
+            
+            $form_fields[ $field['name'] ]['error'] = null;
+                
+        }
+        
+        $kbte_form->set_fields( $form_fields );
+            
+        $kbte_form->save_form();
         
         /*
          * Ensure relevant styles/scripts are added to page.
@@ -187,6 +194,8 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         <label for="<?php echo $this->get_field_id('title'); ?>">
             <p><?php _e('Title', 'kbte'); ?>: <input style="width: 100%;" type="text" value="<?php echo $instance['title']; ?>" name="<?php echo $this->get_field_name('title'); ?>" id="<?php echo $this->get_field_id('title'); ?>"></p>
         </label>
+
+        <input id="<?php echo $this->get_field_id('form_id'); ?>" type="hidden" name="<?php echo $this->get_field_name('form_id'); ?>" value="<?php echo $instance['form_id']; ?>">
         <?php
         
     }
@@ -203,6 +212,21 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         
         // Update text inputs and remove HTML.
         $instance['title'] = wp_filter_nohtml_kses( $new_instance['title'] );
+        
+        if ( ! isset( $instance['form_id'] ) || empty( $instance['form_id'] ) ) {
+        
+            // Get a unique ID
+            $kbte_form = new Kebo_Form;
+            
+            $instance['form_id'] = $kbte_form->new_ID();
+            
+            $default_fields = kbte_get_default_form_fields();
+            
+            $kbte_form->set_fields( $default_fields );
+            
+            $kbte_form->save_form();
+        
+        }
 
         return $instance;
         
