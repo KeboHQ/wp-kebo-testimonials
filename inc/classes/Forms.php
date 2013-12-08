@@ -1,6 +1,7 @@
 <?php
 /*
- * Class to handle Form Data processing.
+ * Kebo Form Class.
+ * General Class to handle Forms in WordPress.
  */
 
 if ( ! defined( 'KBTE_VERSION' ) ) {
@@ -26,6 +27,11 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
         public $form_id;
         
         /*
+         * Plugin Prefix
+         */
+        public $prefix;
+        
+        /*
          * Store Form Fields
          */
         public $form_fields = array();
@@ -41,11 +47,18 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
         public $is_spam;
         
         /*
+         * Was the form successfully saved?
+         */
+        public $is_saved;
+        
+        /*
          * Get new ID
          */
-        public function get_new_ID() {
+        public function new_ID() {
             
             self::$id_counter++;
+            
+            $this->form_id = self::$id_counter;
             
             return self::$id_counter;
             
@@ -95,12 +108,33 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
             
             $this->is_spam = false;
             
+            $this->is_saved = false;
+            
         }
         
         /*
-         * Load POST Data
+         * Get Form Fields
          */
-        public function load_data( $fields ) {
+        public function get_fields() {
+            
+            if ( isset( $this->form_id ) ) {
+            
+                $form_fields = $this->form_fields;
+                
+                return $form_fields[ $this->form_id ];
+            
+            } else {
+                
+                return false;
+                
+            }
+            
+        }
+        
+        /*
+         * Set Form Fields
+         */
+        public function set_fields( $fields ) {
             
             $this->form_fields = $fields;
             
@@ -109,11 +143,182 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
         }
         
         /*
+         * Load Form Fields from Option
+         */
+        public function load_form() {
+            
+            if ( false !== ( $form_data = get_option( 'kebo_form_data' ) ) && isset( $this->form_id ) ) {
+            
+                $this->form_fields = $form_data[ $this->form_id ]['fields'];
+                
+                $this->is_error = $form_data[ $this->form_id ]['options']['is_error'];
+                
+                $this->is_saved = $form_data[ $this->form_id ]['options']['is_saved'];
+            
+                return;
+            
+            } else {
+                
+                return false;
+                
+            }
+            
+        }
+        
+        /*
+         * Save Form Fields to Option
+         */
+        public function save_form() {
+            
+            $this_form = array();
+            
+            $this_form['fields'] = $this->form_fields;
+            
+            $this_form['options'] = array(
+                'is_error' => $this->is_error,
+                'is_saved' => $this->is_saved,
+            );
+            
+            $saved_form_data = get_option( 'kebo_form_data' );
+            
+            if ( false === $saved_form_data ) {
+                
+                $form_data[ $this->form_id ] = $this_form;
+                
+                update_option( 'kebo_form_data', $form_data );
+                
+            } else {
+                
+                $saved_form_data[ $this->form_id ] = $this_form;
+                
+                update_option( 'kebo_form_data', $saved_form_data );
+                
+            }
+            
+        }
+        
+        /*
+         * Validate Fields
+         * Uses common names
+         */
+        public function validate_fields( $fields ) {
+            
+            switch ( $fields->name ) {
+                
+                case 'title':
+                    
+                    $fields->value = ( isset( $_POST['kbte_form']['title'] ) ) ? sanitize_text_field( $_POST['kbte_form']['title'] ) : '' ;
+                    
+                    if ( ! empty( $fields->value ) && true == $fields->required ) {
+                        
+                        $fields->error = 'required';
+                        
+                    }
+                    
+                    break;
+                
+                case 'name':
+                    
+                    $fields->value = ( isset( $_POST['kbte_form']['name'] ) ) ? sanitize_text_field( $_POST['kbte_form']['name'] ) : '' ;
+                    
+                    if ( ! empty( $fields->value ) && true == $fields->required ) {
+                        
+                        $fields->error = 'required';
+                        
+                    }
+                    
+                    break;
+                
+                case 'url':
+                    
+                    $fields->value = ( isset( $_POST['kbte_form']['url'] ) ) ? sanitize_text_field( $_POST['kbte_form']['url'] ) : '' ;
+                    
+                    if ( ! filter_var( $fields->value, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED ) ) {
+                        $fields->error = 'invalid';
+                    } elseif ( ! empty( $fields->value ) && true == $fields->required ) {
+                        
+                        $fields->error = 'required';
+                        
+                    }
+                    
+                    break;
+                
+                default:
+                    
+                case 'email':
+                    
+                    $fields->value = ( isset( $_POST['kbte_form']['email'] ) ) ? sanitize_email( $_POST['kbte_form']['email'] ) : '' ;
+                    
+                    if ( ! is_email( $fields->value ) ) {
+                        
+                        $fields->error = 'invalid';
+                        
+                    } elseif ( ! empty( $fields->value ) && true == $fields->required ) {
+                        
+                        $fields->error = 'required';
+                        
+                    }
+                    
+                    break;
+                
+                default:
+                    
+                case 'review':
+                    
+                    $fields->value = ( isset( $_POST['kbte_form']['review'] ) ) ? wp_strip_all_tags( $_POST['kbte_form']['review'] ) : '' ;
+                    
+                    if ( ! empty( $fields->value ) && true == $fields->required ) {
+                        
+                        $fields->error = 'required';
+                        
+                    }
+                    
+                    break;
+                
+                default:
+                    
+                case 'rating':
+                    
+                    $fields->value = ( isset( $_POST['kbte_form']['rating'] ) ) ? absint( $_POST['kbte_form']['rating'] ) : '' ;
+                    
+                    if ( ! is_numeric( $fields->value ) ) {
+                        
+                        $fields->error = 'invalid';
+                        
+                    } elseif ( ! empty( $fields->value ) && true == $fields->required ) {
+                        
+                        $fields->error = 'required';
+                        
+                    }
+                    
+                    break;
+                
+                default:
+                    
+                    $fields->value = ( isset( $_POST['kbte_form']['review'] ) ) ? wp_strip_all_tags( $_POST['kbte_form']['review'] ) : '' ;
+                    
+                    if ( ! empty( $fields->value ) && true == $fields->required ) {
+                        
+                        $fields->error = 'required';
+                        
+                    }
+                    
+                    break;
+                
+            }
+            
+            return $fields;
+            
+        }
+        
+        /*
          * Validate POST Data
          */
         public function validate_input() {
             
-            // check nonce
+            /*
+             * Check the nonce
+             */
             if ( ! wp_verify_nonce( $_POST['_kbte_form'], 'kbte_form_submit') ) {
                 
                 $this->is_error = true;
@@ -122,9 +327,37 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                 
             }
             
-            if ( time() < ( $_POST['_kbte_time'] + 5 ) ) {
+            /*
+             * Check if the form was submitted too fast for a human.
+             */
+            if ( time() < ( $_POST['_kbte_time'] + 3 ) ) {
                 
                 $this->is_spam = true;
+                
+            }
+            
+            /*
+             * Check the POST came from our site.
+             */
+            if ( ( isset( $_SERVER['HTTP_REFERER'] ) && stristr( $_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST'] ) ) ) {
+                
+                $this->is_spam = true;
+                
+            }
+            
+            if ( is_array( $this->form_fields ) ) {
+                
+                foreach ( $this->form_fields as $field ) {
+
+                    if ( empty( $field->value ) && true == $field->required ) {
+                        $field->error = 'required';
+                    }
+                    
+                    if ( empty( $field->value ) && true == $field->required ) {
+                        $field->error = 'required';
+                    }
+
+                }
                 
             }
             
@@ -164,7 +397,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
             /*
              * Check for spam
              */
-            if ( $this->is_spam ) {
+            if ( true == $this->is_spam ) {
                 $status = 'kbte_spam';
             }
             
@@ -172,7 +405,17 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
              * Check if is User
              */
             if ( 0 != $user_id ) {
-                $author = $user_id;
+                
+                // If current user is not logged in, set as the first Administrator
+                $args = array(
+                    'role' => 'Administrator',
+                    'blog_id' => 33,
+                    'number' => 1,
+                );
+                $user_query = new WP_User_Query( $args );
+                
+                $author = $user_query->results[0]->data->ID;
+                
             }
             
             $post = array(
@@ -188,7 +431,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
             /*
              * Check for WP Error
              */
-            if ( false == $this->is_error ) {
+            if ( true !== $this->is_error ) {
             
                 $post_id = wp_insert_post( $post, true );
             
@@ -213,12 +456,25 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                     
                 }
                 
+                $this->is_saved = true;
+                
             } else {
                 
                 // was error
+                $this->is_saved = false;
+                
                 return;
                 
             }
+            
+            foreach ( $fields as $key => $field ) {
+                $fields[ $key ]['value'] = '';
+                $fields[ $key ]['error'] = '';
+            }
+            
+            $this->set_fields( $fields );
+            
+            $this->save_form();
             
         }
         
