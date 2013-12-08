@@ -58,6 +58,21 @@ function kbte_plugin_options_init() {
     );
     
     /**
+     * General - AntiSpam Feature Activation
+     */
+    add_settings_field(
+            'testimonials_antispam_features', // Unique identifier for the field for this section
+            __('Anti Spam Features', 'kbte'), // Setting field label
+            'kbte_options_render_antispam_features_checkboxes', // Function that renders the settings field
+            'kbte-testimonials', // Menu slug
+            'kbte_testimonials_antispam', // Settings section.
+            array( // Args to pass to render function
+                'name' => 'testimonials_antispam_features',
+                'help_text' => __('Toggle Anti Spam features on and off.', 'kbte')
+            ) 
+    );
+    
+    /**
      * Section - Archive Options
      */
     add_settings_section(
@@ -164,8 +179,13 @@ function kbte_get_plugin_options() {
     $saved = (array) get_option( 'kbte_plugin_options' );
     
     $defaults = array(
-        // Section - Testimonials - General
+        // Section - General
         'testimonials_general_visual_style' => 'default',
+        
+        // Section - Anti Spam
+        'testimonials_antispam_features' => array( 'time_check', 'hidden_field' ),
+        
+        // Section - Archive
         'testimonials_archive_page_title' => __('Testimonials', 'kbte'),
         'testimonials_archive_page_slug' => __('testimonials', 'kbte'),
         'testimonials_archive_posts_per_page' => 10,
@@ -256,6 +276,8 @@ function kbte_options_render_visual_style_dropdown( $args ) {
     
     $name = esc_attr( $args['name'] );
     
+    $help_text = ( $args['help_text'] ) ? esc_html( $args['help_text'] ) : null;
+    
     ?>
     <select id="<?php echo $name; ?>[<?php echo $dropdown['value']; ?>]" name="kbte_plugin_options[<?php echo $name; ?>]">
     <?php
@@ -269,8 +291,58 @@ function kbte_options_render_visual_style_dropdown( $args ) {
         
     }
     ?>
-    </select>    
-    <?php
+    </select> 
+        
+    <?php if ( $help_text ) { ?>
+        <span class="howto"><?php echo esc_html( $help_text ); ?></span>
+    <?php }
+    
+}
+
+/**
+ * Returns an array of select inputs for the Visual Style dropdown.
+ */
+function kbte_options_antispam_features_checkboxes() {
+    
+    $dropdown = array(
+        'time_check' => array(
+            'value' => 'time_check',
+            'label' => __('Time Check', 'kbte')
+        ),
+        'hidden_field' => array(
+            'value' => 'hidden_field',
+            'label' => __('Hidden Field', 'kbte')
+        ),
+    );
+
+    return apply_filters( 'kbte_options_antispam_checkboxes', $dropdown );
+    
+}
+
+/**
+ * Renders the Theme dropdown.
+ */
+function kbte_options_render_antispam_features_checkboxes( $args ) {
+    
+    $options = kbte_get_plugin_options();
+    
+    $name = esc_attr( $args['name'] );
+    
+    $help_text = ( $args['help_text'] ) ? esc_html( $args['help_text'] ) : null;
+
+    foreach ( kbte_options_antispam_features_checkboxes() as $checkbox ) {
+        
+        ?>
+        <label for="<?php echo $name; ?>[<?php echo $checkbox['value']; ?>]">
+        <input type="checkbox" id="<?php echo $name; ?>[<?php echo $checkbox['value']; ?>]" name="kbte_plugin_options[<?php echo $name; ?>][]" value="<?php echo $checkbox['value']; ?>" <?php checked( true, in_array( $checkbox['value'], $options[ $name ] ) ); ?> />
+        <?php echo esc_html( $checkbox['label'] ); ?>
+        </label><br>
+        <?php
+        
+    }
+    if ( $help_text ) { ?>
+        <span class="howto"><?php echo esc_html( $help_text ); ?></span>
+    <?php }
         
 }
 
@@ -398,6 +470,13 @@ function kbte_plugin_options_validate( $input ) {
     // General Section
     if ( isset( $input['testimonials_general_visual_style'] ) && array_key_exists( $input['testimonials_general_visual_style'], kbte_options_visual_style_dropdown() ) ) {
         $output['testimonials_general_visual_style'] = $input['testimonials_general_visual_style'];
+    }
+    
+    // Anti Spam Section
+    if ( isset( $input['testimonials_antispam_features'] ) ) {
+        if ( in_array( 'time_check', kbte_options_antispam_features_checkboxes() ) || in_array( 'hidden_field', kbte_options_antispam_features_checkboxes() ) ) {
+            $output['testimonials_general_visual_style'] = $input['testimonials_general_visual_style'];
+        }
     }
     
     // Archive Section
