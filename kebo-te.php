@@ -24,7 +24,7 @@ define( 'KBTE_PATH', plugin_dir_path(__FILE__) );
  */
 function kbte_load_textdomain() {
     
-    load_plugin_textdomain( 'kbte', false, KBSO_PATH . '/languages' );
+    load_plugin_textdomain( 'kbte', false, KBTE_PATH . '/languages' );
     
 }
 add_filter( 'wp_loaded', 'kbte_load_textdomain' );
@@ -79,6 +79,11 @@ function kbte_plugin_setup() {
     require_once( KBTE_PATH . 'inc/classes/Forms.php' );
     
     /*
+     * Include Akismet Class.
+     */
+    require_once( KBTE_PATH . 'inc/classes/Akismet.php' );
+    
+    /*
      * Include Shortcode.
      */
     require_once( KBTE_PATH . 'inc/shortcode.php' );
@@ -88,6 +93,10 @@ function kbte_plugin_setup() {
      */
     require_once( KBTE_PATH . 'inc/widget.php' );
     
+    
+    /*
+     * Admin or Frontend
+     */
     if ( is_admin() ) {
     
         /*
