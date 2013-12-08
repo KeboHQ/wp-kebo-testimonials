@@ -319,15 +319,18 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                 
                 }
                 
-                if ( ! empty( $fields['title']['value'] ) ) {
+                if ( ! empty( $fields['rating']['value'] ) ) {
                     
-                    update_post_meta( $post_id, '_kbte_testimonials_meta_rating', $fields['title']['value'] );
+                    update_post_meta( $post_id, '_kbte_testimonials_meta_rating', $fields['rating']['value'] );
                     
                 }
                 
                 $this->is_saved = 'true';
                 
-                //wp_mail( $to, $subject, $message, $headers );
+                /*
+                 * Action on successful testimonial save
+                 */
+                do_action( 'kbte_testimonials_testimonial_saved', $post_data, $post_meta, $rating );
                 
             } else {
                 
