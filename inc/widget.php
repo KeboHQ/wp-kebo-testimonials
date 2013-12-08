@@ -138,7 +138,7 @@ class Kbte_Testimonials_Widget extends WP_Widget {
          * Setup an instance of the View class.
          * Allow customization using a filter.
          */
-        $view = new Kbso_View(
+        $view = new Kebo_View(
             apply_filters(
                 'kbte_testimonials_widget_form_view_dir',
                 KBTE_PATH . 'views/form',
