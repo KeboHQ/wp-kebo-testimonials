@@ -21,7 +21,9 @@ function kbte_testimonials_shortcode( $atts ) {
         'baz' => 'default baz'
     ), $atts ) );
     
-    $output = '';
+    $output = 'TODO: Replicate Widget as Shortcode';
+    
+    // TODO: Replicate Widget in Shortcode
     
     return $output;
     
