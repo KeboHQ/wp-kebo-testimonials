@@ -81,7 +81,7 @@ if ( is_multisite() ) {
     // Query for posts
     $kbte_posts = new WP_Query( $args );
     
-    if ( ! isset( $kbte_posts ) || ! is_object( $kbte_posts->posts ) ) {
+    if ( ! isset( $kbte_posts ) || false == $kbte_posts ) {
         return;
     }
     
