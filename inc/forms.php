@@ -82,7 +82,7 @@ function kbte_testimonials_form_validation( $fields ) {
 
                 $fields[ $field['name'] ]['value'] = ( isset( $_POST['kbte_form']['title'] ) ) ? sanitize_text_field( trim( $_POST['kbte_form']['title'] ) ) : '';
 
-                if ( ! empty( $fields[ $field['name'] ]['value'] ) && true == $fields[ $field['name'] ]['required'] ) {
+                if ( empty( $fields[ $field['name'] ]['value'] ) && true == $fields[ $field['name'] ]['required'] ) {
 
                     $fields[ $field['name'] ]['error'] = 'required';
                     
