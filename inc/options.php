@@ -313,6 +313,10 @@ function kbte_options_antispam_features_checkboxes() {
             'value' => 'hidden_field',
             'label' => __('Hidden Field', 'kbte')
         ),
+        'referer_check' => array(
+            'value' => 'referer_check',
+            'label' => __('Referer Check', 'kbte')
+        ),
     );
 
     return apply_filters( 'kbte_options_antispam_checkboxes', $dropdown );
@@ -334,7 +338,7 @@ function kbte_options_render_antispam_features_checkboxes( $args ) {
         
         ?>
         <label for="<?php echo $name; ?>[<?php echo $checkbox['value']; ?>]">
-        <input type="checkbox" id="<?php echo $name; ?>[<?php echo $checkbox['value']; ?>]" name="kbte_plugin_options[<?php echo $name; ?>][]" value="<?php echo $checkbox['value']; ?>" <?php checked( true, in_array( $checkbox['value'], $options[ $name ] ) ); ?> />
+        <input type="checkbox" class="antispam" id="<?php echo $name; ?>[<?php echo $checkbox['value']; ?>]" name="kbte_plugin_options[<?php echo $name; ?>][]" value="<?php echo $checkbox['value']; ?>" <?php checked( true, in_array( $checkbox['value'], $options[ $name ] ) ); ?> />
         <?php echo esc_html( $checkbox['label'] ); ?>
         </label><br>
         <?php
