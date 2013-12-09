@@ -71,6 +71,8 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         if ( is_rtl() ) {
             $classes[] = 'rtl';
         }
+        
+        print_r($instance);
                  
         // Create new Form
         $kbte_form = new Kebo_Form();
@@ -196,11 +198,11 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         <div class="kfield">
 
             <label for="<?php echo $this->get_field_id('field_title'); ?>">
-                <p><?php _e('Title Field', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_title']; ?>" name="<?php echo $this->get_field_name('field_title'); ?>" id="<?php echo $this->get_field_id('field_title'); ?>"></p>
+                <p><?php _e('Title Field', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_title'); ?>" id="<?php echo $this->get_field_id('field_title'); ?>" <?php checked( 'true', $instance['field_title'] ); ?>></p>
             </label>
 
             <label for="<?php echo $this->get_field_id('field_title_required'); ?>">
-                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_title_required']; ?>" name="<?php echo $this->get_field_name('field_title_required'); ?>" id="<?php echo $this->get_field_id('field_title_required'); ?>"></p>
+                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_title_required'); ?>" id="<?php echo $this->get_field_id('field_title_required'); ?>" <?php checked( 'true', $instance['field_title_required'] ); ?>></p>
             </label>
             
         </div>
@@ -208,11 +210,11 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         <div class="kfield">
 
             <label for="<?php echo $this->get_field_id('field_name'); ?>">
-                <p><?php _e('Name Field', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_name']; ?>" name="<?php echo $this->get_field_name('field_name'); ?>" id="<?php echo $this->get_field_id('field_name'); ?>" checked="checked" disabled="disabled"></p>
+                <p><?php _e('Name Field', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_name'); ?>" id="<?php echo $this->get_field_id('field_name'); ?>" checked="checked" disabled="disabled"></p>
             </label>
 
             <label for="<?php echo $this->get_field_id('field_name_required'); ?>">
-                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_name_required']; ?>" name="<?php echo $this->get_field_name('field_name_required'); ?>" id="<?php echo $this->get_field_id('field_name_required'); ?>" checked="checked" disabled="disabled"></p>
+                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_name_required'); ?>" id="<?php echo $this->get_field_id('field_name_required'); ?>" checked="checked" disabled="disabled"></p>
             </label>
             
         </div>
@@ -220,11 +222,11 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         <div class="kfield">
 
             <label for="<?php echo $this->get_field_id('field_url'); ?>">
-                <p><?php _e('URL Field', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_url']; ?>" name="<?php echo $this->get_field_name('field_url'); ?>" id="<?php echo $this->get_field_id('field_url'); ?>"></p>
+                <p><?php _e('URL Field', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_url'); ?>" id="<?php echo $this->get_field_id('field_url'); ?>" <?php checked( 'true', $instance['field_url'] ); ?>></p>
             </label>
 
             <label for="<?php echo $this->get_field_id('field_url_required'); ?>">
-                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_url_required']; ?>" name="<?php echo $this->get_field_name('field_url_required'); ?>" id="<?php echo $this->get_field_id('field_url_required'); ?>"></p>
+                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_url_required'); ?>" id="<?php echo $this->get_field_id('field_url_required'); ?>" <?php checked( 'true', $instance['field_url_required'] ); ?>></p>
             </label>
             
         </div>
@@ -232,11 +234,11 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         <div class="kfield">
 
             <label for="<?php echo $this->get_field_id('field_email'); ?>">
-                <p><?php _e('Email Field', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_email']; ?>" name="<?php echo $this->get_field_name('field_email'); ?>" id="<?php echo $this->get_field_id('field_email'); ?>"></p>
+                <p><?php _e('Email Field', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_email'); ?>" id="<?php echo $this->get_field_id('field_email'); ?>" <?php checked( 'true', $instance['field_email'] ); ?>></p>
             </label>
 
             <label for="<?php echo $this->get_field_id('field_email_required'); ?>">
-                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_email_required']; ?>" name="<?php echo $this->get_field_name('field_email_required'); ?>" id="<?php echo $this->get_field_id('field_email_required'); ?>"></p>
+                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_email_required'); ?>" id="<?php echo $this->get_field_id('field_email_required'); ?>" <?php checked( 'true', $instance['field_email_required'] ); ?>></p>
             </label>
             
         </div>
@@ -244,11 +246,11 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         <div class="kfield">
 
             <label for="<?php echo $this->get_field_id('field_review'); ?>">
-                <p><?php _e('Review Field', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_review']; ?>" name="<?php echo $this->get_field_name('field_review'); ?>" id="<?php echo $this->get_field_id('field_review'); ?>" checked="checked" disabled="disabled"></p>
+                <p><?php _e('Review Field', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_review'); ?>" id="<?php echo $this->get_field_id('field_review'); ?>" checked="checked" disabled="disabled"></p>
             </label>
 
             <label for="<?php echo $this->get_field_id('field_review_required'); ?>">
-                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_review_required']; ?>" name="<?php echo $this->get_field_name('field_review_required'); ?>" id="<?php echo $this->get_field_id('field_review_required'); ?>" checked="checked" disabled="disabled"></p>
+                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_review_required'); ?>" id="<?php echo $this->get_field_id('field_review_required'); ?>" checked="checked" disabled="disabled"></p>
             </label>
             
         </div>
@@ -256,11 +258,11 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         <div class="kfield">
 
             <label for="<?php echo $this->get_field_id('field_rating'); ?>">
-                <p><?php _e('Rating Field', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_rating']; ?>" name="<?php echo $this->get_field_name('field_rating'); ?>" id="<?php echo $this->get_field_id('field_rating'); ?>"></p>
+                <p><?php _e('Rating Field', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_rating'); ?>" id="<?php echo $this->get_field_id('field_rating'); ?>" <?php checked( 'true', $instance['field_rating'] ); ?>></p>
             </label>
 
             <label for="<?php echo $this->get_field_id('field_rating_required'); ?>">
-                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="<?php echo $instance['field_rating_required']; ?>" name="<?php echo $this->get_field_name('field_rating_required'); ?>" id="<?php echo $this->get_field_id('field_rating_required'); ?>"></p>
+                <p><?php _e('Required', 'kbte'); ?>: <input type="checkbox" value="true" name="<?php echo $this->get_field_name('field_rating_required'); ?>" id="<?php echo $this->get_field_id('field_rating_required'); ?>" <?php checked( 'true', $instance['field_rating_required'] ); ?>></p>
             </label>
             
         </div>
@@ -282,6 +284,24 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         
         // Update text inputs and remove HTML.
         $instance['title'] = wp_filter_nohtml_kses( $new_instance['title'] );
+        
+        $instance['field_title'] = $new_instance['field_title'];
+        $instance['field_title_required'] = ( 'true' == $new_instance['field_title'] ) ? $new_instance['field_title_required'] : 'false' ;
+        
+        $instance['field_name'] = true;
+        $instance['field_name_required'] = true;
+        
+        $instance['field_url'] = $new_instance['field_url'];
+        $instance['field_url_required'] = ( 'true' == $new_instance['field_url'] ) ? $new_instance['field_url_required'] : 'false' ;
+        
+        $instance['field_email'] = $new_instance['field_email'];
+        $instance['field_email_required'] = ( 'true' == $new_instance['field_email'] ) ? $new_instance['field_email_required'] : 'false' ;
+        
+        $instance['field_review'] = true;
+        $instance['field_review_required'] = true;
+        
+        $instance['field_rating'] = $new_instance['field_rating'];
+        $instance['field_rating_required'] = ( 'true' == $new_instance['field_rating'] ) ? $new_instance['field_rating_required'] : 'false' ;
         
         if ( ! isset( $instance['form_id'] ) || empty( $instance['form_id'] ) ) {
         
