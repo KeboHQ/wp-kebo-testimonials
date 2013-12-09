@@ -136,7 +136,7 @@ function kbte_testimonials_load_custom_status_edit() {
 
     global $post;
     
-    if( $post->post_type == 'kbte_testimonials' ) {
+    if ( isset( $post->post_type ) && $post->post_type == 'kbte_testimonials' ) {
           
           ?>
           <script type="text/javascript">
@@ -153,5 +153,4 @@ function kbte_testimonials_load_custom_status_edit() {
      }
 
 }
-
 add_action( 'admin_footer-edit.php', 'kbte_testimonials_load_custom_status_edit' );
