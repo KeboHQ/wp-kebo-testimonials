@@ -46,3 +46,26 @@
 .kbte_testimonials_page_kbte-testimonials .kresponsivecolumns:last-of-type {
         margin-right: 0;
 }
+
+/*
+ * Widget Options Form
+ */
+div[id*='_kbte_testimonials_'] .kfield {
+        clear: both;
+}
+div[id*='_kbte_testimonials_'] .kfield label {
+        float: left;
+}
+div[id*='_kbte_testimonials_'] .kfield label:first-of-type {
+        width: 45%;
+}
+div[id*='_kbte_testimonials_'] .kfield label:first-of-type input {
+        float: right;
+}
+div[id*='_kbte_testimonials_'] .kfield label:last-of-type {
+        width: 40%;
+        margin-left: 10%;
+}
+div[id*='_kbte_testimonials_'] .kfield label:last-of-type input {
+        float: right;
+}
