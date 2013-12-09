@@ -50,19 +50,11 @@
 .krating-field label {
         display: block;
 }
-.krating-field label:first-of-type {
-        float: left;
-        margin-right: 1em;
-}
 .krating-field .krating {
         position: relative;
         overflow: hidden;
         display: inline-block;
         clear: both;
-}
-.krating-field .krating label {
-        margin: 0;
-        float: right;
 }
 .krating-field .krating-input {
         display: none;
