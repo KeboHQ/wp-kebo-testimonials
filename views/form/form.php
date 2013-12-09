@@ -32,7 +32,7 @@ if ( ! empty( $title ) ) {
         <div class="ktitle-field<?php if ( $fields['title']['error'] ) { echo ' error'; } ?>">
             <label for="field_title"><?php esc_html_e('Title', 'kbte'); ?> <?php if ( $fields['title']['required'] ) : ?><small><?php esc_html_e('required', 'kbte'); ?></small><?php endif; ?></label>
             <input id="field_title" name="kbte_form[<?php echo esc_attr( $fields['title']['name'] ); ?>]" type="text" value="<?php echo esc_html( $fields['title']['value'] ); ?>" <?php if ( $fields['title']['required'] ) : ?>required<?php endif; ?>>
-            <?php if ( $fields['title']['required'] ) : ?><small class="error"><?php echo ( isset( $fields['title']['error'] ) ) ? esc_html( $fields['title']['error'] ) : esc_html_e('A title is required.', 'kbte') ; ?></small><?php endif; ?>
+            <?php if ( $fields['title']['required'] ) : ?><small class="error"><?php esc_html_e('A title is required.', 'kbte') ; ?></small><?php endif; ?>
         </div>
     
     <?php endif; ?>
