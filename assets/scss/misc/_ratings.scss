@@ -38,7 +38,61 @@
         background-position: 0 0;
 }
 
-// Frontend
+// Frontend Submission Forms
+.ktestimonialform {
+        overflow: hidden;
+        margin: 0;
+}
+.krating-field {
+        display: block;
+        clear: both;
+}
+.krating-field label {
+        display: block;
+}
+.krating-field label:first-of-type {
+        float: left;
+        margin-right: 1em;
+}
+.krating-field .krating {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        clear: both;
+}
+.krating-field .krating label {
+        margin: 0;
+        float: right;
+}
+.krating-field .krating-input {
+        display: none;
+        float: left;
+        width: 16px;
+        height: 16px;
+}
+.krating-field .krating-star {
+        float: right;
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: url('../images/ratingstar.png') 0 -16px;
+}
+.krating-field .krating-star:hover,
+.krating-field .krating-star:hover ~ .krating-star {
+        background-position: 0 0;
+}
+.krating-field .krating-star:hover,
+.krating-field .krating-star:hover ~ .krating-star,
+.krating-field .krating-input:checked ~ .krating-star {
+        background-position: 0 0;
+}
+.ktestimonialform button#submit {
+        float: left;
+        clear: both;
+        margin-top: 1em;
+}
+
+// Frontend Display
 
 .kreviewstars {
         
