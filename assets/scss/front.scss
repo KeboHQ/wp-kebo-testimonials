@@ -150,6 +150,30 @@
 }
 
 /*
+ * Pagination
+ */
+.kpagination {
+        text-align: center;
+        margin-bottom: 2em;
+}
+.kpagination .page-numbers {
+        border: 1px solid #ccc;
+        padding: 0.2em 0.6em;
+        background: #fff;
+}
+.kpagination .page-numbers.current {
+        border: 1px solid #bbb;
+        padding: 0.2em 0.6em;
+        background: #bbb;
+        color: #fff;
+}
+.kpagination .page-numbers:hover:not(.current):not(.dots) {
+        border-color: #aaa;
+        background: #fefefe;
+}
+
+
+/*
  * Foundation Abide - Error Styles
  */
 @import "misc/abide";
