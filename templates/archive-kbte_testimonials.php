@@ -29,7 +29,7 @@ get_header();
                     $columns = kbte_get_columns();
                     ?>
                     
-                    <ul class="small-kebo-grid-<?php echo $columns['small']; ?> medium-kebo-grid-<?php echo $columns['medium']; ?> large-kebo-grid-<?php echo $columns['large']; ?>">
+                    <ul class="small-kebo-grid-<?php echo esc_attr( $columns['small'] ); ?> medium-kebo-grid-<?php echo esc_attr( $columns['medium'] ); ?> large-kebo-grid-<?php echo esc_attr( $columns['large'] ); ?>">
 
                         <?php while ( have_posts()) : the_post(); ?>
 
@@ -98,7 +98,7 @@ get_header();
                         
                     </ul>
                         
-                </div><!-- .ktestimonials-container -->
+                </div><!-- .ktestimonials -->
                 
                 <?php kbte_pagination_nav(); ?>
 
