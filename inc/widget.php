@@ -52,7 +52,7 @@ class Kbte_Testimonials_Widget extends WP_Widget {
 
         $widget_ops = array(
             'classname' => 'kbte_testimonials_widget',
-            'description' => __( 'Displays Testimonials.', 'kbte' )
+            'description' => __( 'A Testimonials Submission Form.', 'kbte' )
         );
 
         $this->WP_Widget(
