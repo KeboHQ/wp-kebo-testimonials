@@ -72,8 +72,8 @@ class Kbte_Testimonials_Widget extends WP_Widget {
             $classes[] = 'rtl';
         }
         
-        //print_r( get_option('kebo_form_data') );
-        
+        echo strpos( $_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST'] );
+                 
         // Create new Form
         $kbte_form = new Kebo_Form();
             
