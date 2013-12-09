@@ -330,7 +330,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                 /*
                  * Action on successful testimonial save
                  */
-                do_action( 'kbte_testimonials_testimonial_saved', $post_data, $post_meta, $rating );
+                do_action( 'kbte_testimonials_testimonial_saved', $post_data, $post_meta, $fields['rating']['value'] );
                 
             } else {
                 
