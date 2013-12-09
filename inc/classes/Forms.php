@@ -222,7 +222,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
             /*
              * Check the POST came from our site.
              */
-            if ( ( isset( $_SERVER['HTTP_REFERER'] ) && stristr( $_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST'] ) ) ) {
+            if ( ( isset( $_SERVER['HTTP_HOST'] ) && isset( $_SERVER['HTTP_REFERER'] ) && false === strpos( $_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST'] ) ) ) {
 
                 $this->is_spam = 'true';
 
