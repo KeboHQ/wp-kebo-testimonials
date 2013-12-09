@@ -44,7 +44,7 @@ add_action('init', 'kbte_testimonials_check_for_form_data');
 /*
  * Sends email to admin when new testimonials are received
  */
-function kbte_testimonials_new_entry_saved( $post_data, $post_meta, $fields, $post_id ) {
+function kbte_testimonials_new_entry_saved( $post_id ) {
     
     // If an admin email is set, send a notification email.
     if ( false !== ( $admin_email = get_option( 'admin_email' ) ) ) {
@@ -64,7 +64,7 @@ function kbte_testimonials_new_entry_saved( $post_data, $post_meta, $fields, $po
     }
     
 }
-add_action( 'kbte_testimonials_testimonial_saved', 'kbte_testimonials_new_entry_saved', 4 );
+add_action( 'kbte_testimonials_testimonial_saved', 'kbte_testimonials_new_entry_saved', 1 );
 
 /*
  * Validation Function for Form Data

@@ -258,9 +258,9 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
             $user_id = get_current_user_id();
             
             $post_meta = array(
-                'reviewer_name' => $fields['name']['value'],
-                'reviewer_url' => $fields['url']['value'],
-                'reviewer_email' => $fields['email']['value'],
+                'reviewer_name' => ( isset( $fields['name']['value'] ) ) ? $fields['name']['value'] : '',
+                'reviewer_url' => ( isset( $fields['url']['value'] ) ) ? $fields['url']['value'] : '',
+                'reviewer_email' => ( isset( $fields['email']['value'] ) ) ? $fields['email']['value'] : '',
             );
             
             /*
@@ -330,7 +330,7 @@ if ( ! class_exists( 'Kebo_Form' ) ) {
                 /*
                  * Action on successful testimonial save
                  */
-                do_action( 'kbte_testimonials_testimonial_saved', $post_data, $post_meta, $fields, $post_id );
+                do_action( 'kbte_testimonials_testimonial_saved', $post_id );
                 
             } else {
                 
