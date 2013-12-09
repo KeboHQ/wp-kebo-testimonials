@@ -71,8 +71,6 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         if ( is_rtl() ) {
             $classes[] = 'rtl';
         }
-        
-        print_r($instance);
                  
         // Create new Form
         $kbte_form = new Kebo_Form();
@@ -101,13 +99,22 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         
         if ( isset( $form_fields ) && is_array( $form_fields ) ) {
         
-            // Remove unwanted Form Fields.
+            // Loops through Form Fields.
             foreach ( $form_fields as $field ) {
-
-                if ( ! in_array( $field['name'], $instance['form_fields'] ) ) {
+                
+                // Remove unwanted fields and mark if required
+                if ( ! isset( $instance[ 'field_' . $field['name'] ] ) ) {
 
                     unset( $form_fields[ $field['name'] ] );
 
+                } else {
+                    
+                    if ( 'true' == $instance[ 'field_' . $field['name'] . '_required' ]  ) {
+                        
+                        $form_fields[ $field['name'] ]['required'] = 'true';
+                        
+                    }
+                    
                 }
 
             }
@@ -286,22 +293,22 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         $instance['title'] = wp_filter_nohtml_kses( $new_instance['title'] );
         
         $instance['field_title'] = $new_instance['field_title'];
-        $instance['field_title_required'] = ( 'true' == $new_instance['field_title'] ) ? $new_instance['field_title_required'] : 'false' ;
+        $instance['field_title_required'] = ( 'true' == $new_instance['field_title'] ) ? esc_attr( $new_instance['field_title_required'] ) : 'false' ;
         
-        $instance['field_name'] = true;
-        $instance['field_name_required'] = true;
+        $instance['field_name'] = 'true';
+        $instance['field_name_required'] = 'true';
         
         $instance['field_url'] = $new_instance['field_url'];
-        $instance['field_url_required'] = ( 'true' == $new_instance['field_url'] ) ? $new_instance['field_url_required'] : 'false' ;
+        $instance['field_url_required'] = ( 'true' == $new_instance['field_url'] ) ? esc_attr( $new_instance['field_url_required'] ) : 'false' ;
         
         $instance['field_email'] = $new_instance['field_email'];
-        $instance['field_email_required'] = ( 'true' == $new_instance['field_email'] ) ? $new_instance['field_email_required'] : 'false' ;
+        $instance['field_email_required'] = ( 'true' == $new_instance['field_email'] ) ? esc_attr( $new_instance['field_email_required'] ) : 'false' ;
         
-        $instance['field_review'] = true;
-        $instance['field_review_required'] = true;
+        $instance['field_review'] = 'true';
+        $instance['field_review_required'] = 'true';
         
         $instance['field_rating'] = $new_instance['field_rating'];
-        $instance['field_rating_required'] = ( 'true' == $new_instance['field_rating'] ) ? $new_instance['field_rating_required'] : 'false' ;
+        $instance['field_rating_required'] = ( 'true' == $new_instance['field_rating'] ) ? esc_attr( $new_instance['field_rating_required'] ) : 'false' ;
         
         if ( ! isset( $instance['form_id'] ) || empty( $instance['form_id'] ) ) {
         
