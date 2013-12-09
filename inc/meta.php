@@ -94,7 +94,7 @@ function kbte_testimonials_reviewer_details_render() {
 function kbte_save_testimonials_client_details( $post_id ) {
     
     // Check Post Type
-    if ( isset( $_POST['post_type'] ) ) {
+    if ( isset( $_POST['post_type'] ) && isset( $_REQUEST['kbte-testimonials-meta'] ) ) {
         
         if ( 'kbte_testimonials' == $_POST['post_type'] ) {
 
