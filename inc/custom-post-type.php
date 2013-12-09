@@ -136,7 +136,7 @@ function kbte_testimonials_load_custom_status_edit() {
 
     global $post;
     
-    if ( isset( $post->post_type ) && $post->post_type == 'kbte_testimonials' ) {
+    if ( isset( $post->post_type ) && 'kbte_testimonials' == $post->post_type ) {
           
           ?>
           <script type="text/javascript">
