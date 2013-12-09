@@ -95,7 +95,7 @@ function kbte_testimonials_help_page_render() {
         <h4>1) <?php _e('Page Slug', 'kbte'); ?></h4>
         
         <p>Set the <strong>'Page Slug'</strong> option for the Testimonials archive page. This is the URL for the page where your Testimonials will be displayed.<br>
-            The slug is currently set to <strong><?php echo esc_attr( $options['testimonials_archive_page_slug'] ); ?></strong> which will make it available at: <a href="<?php echo esc_url( site_url( '/' . $options['testimonials_archive_page_slug'] . '/' ) ); ?>" target="_blank"><?php echo esc_url( site_url( '/' . $options['testimonials_archive_page_slug'] . '/' ) ); ?></a>.</p>
+            The slug is currently set to <strong><?php echo esc_attr( $options['testimonials_archive_page_slug'] ); ?></strong> which will make it available at: <a href="<?php echo esc_url( home_url( '/' . $options['testimonials_archive_page_slug'] . '/' ) ); ?>" target="_blank"><?php echo esc_url( home_url( '/' . $options['testimonials_archive_page_slug'] . '/' ) ); ?></a>.</p>
         
         <h4>2) <?php _e('Testimonials Per Page', 'kbte'); ?></h4>
         
