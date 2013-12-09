@@ -211,7 +211,7 @@ function kbte_options_render_text_input( $args ) {
     
     $name = esc_attr( $args['name'] );
     
-    $label_text = ( $args['label_text'] ) ? esc_attr( $args['label_text'] ) : '' ;
+    $label_text = ( isset( $args['label_text'] ) ) ? esc_attr( $args['label_text'] ) : null ;
     
     $help_text = ( isset( $args['help_text'] ) ) ? esc_html( $args['help_text'] ) : null;
         
