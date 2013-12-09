@@ -162,13 +162,21 @@ function kbte_testimonials_form_validation( $fields ) {
             case 'rating':
 
                 $fields[ $field['name'] ]['value'] = ( isset( $_POST['kbte_form']['rating'] ) ) ? absint( trim( $_POST['kbte_form']['rating'] ) ) : '';
-
+                
                 if ( ! is_numeric( $fields[ $field['name'] ]['value'] ) ) {
 
+                    $fields[ $field['name'] ]['value'] = null;
                     $fields[ $field['name'] ]['error'] = 'invalid';
+                    
                 } elseif ( empty($fields[ $field['name'] ]['value'] ) && true == $fields[ $field['name'] ]['required'] ) {
 
                     $fields[ $field['name'] ]['error'] = 'required';
+                    
+                } elseif ( 1 > $fields[ $field['name'] ]['value'] && 5 < $fields[ $field['name'] ]['value'] ) {
+                    
+                    $fields[ $field['name'] ]['value'] = null;
+                    $fields[ $field['name'] ]['error'] = 'invalid';
+                    
                 }
 
                 break;
@@ -180,6 +188,7 @@ function kbte_testimonials_form_validation( $fields ) {
                 if ( empty( $fields[ $field['name'] ]['value'] ) && true == $fields[ $field['name'] ]['required'] ) {
 
                     $fields[ $field['name'] ]['error'] = 'required';
+                    
                 }
 
                 break;
