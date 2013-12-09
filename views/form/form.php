@@ -41,7 +41,7 @@ if ( ! empty( $title ) ) {
     
         <div class="kname-field<?php if ( $fields['name']['error'] ) { echo ' error'; } ?>">
             <label for="field_name"><?php esc_html_e('Name', 'kbte'); ?> <?php if ( $fields['name']['required'] ) : ?><small><?php esc_html_e('required', 'kbte'); ?></small><?php endif; ?></label>
-            <input id="field_name" name="kbte_form[<?php echo esc_attr( $fields['name']['name'] ); ?>]" type="text" value="<?php echo esc_html( $fields['name']['value'] ); ?>" <?php if ( $fields['name']['required'] ) : ?><?php endif; ?>>
+            <input id="field_name" name="kbte_form[<?php echo esc_attr( $fields['name']['name'] ); ?>]" type="text" value="<?php echo esc_html( $fields['name']['value'] ); ?>" <?php if ( $fields['name']['required'] ) : ?>required<?php endif; ?>>
             <?php if ( $fields['name']['required'] ) : ?><small class="error"><?php esc_html_e('A name is required.', 'kbte'); ?></small><?php endif; ?>
         </div>
     
