@@ -80,9 +80,30 @@ if ( ! empty( $title ) ) {
     <?php if ( isset( $fields['rating'] ) ) : ?>
     
         <div class="krating-field<?php if ( $fields['rating']['error'] ) { echo ' error'; } ?>">
-            <label for="field_rating"><?php esc_html_e('Rating', 'kbte'); ?> <?php if ( $fields['rating']['required'] ) : ?><small><?php esc_html_e('required', 'kbte'); ?></small><?php endif; ?></label>
-            <textarea id="field_rating" name="kbte_form[<?php echo esc_attr( $fields['rating']['name'] ); ?>]" type="text" value="<?php echo esc_html( $fields['rating']['value'] ); ?>" <?php if ( $fields['rating']['required'] ) : ?>required<?php endif; ?>></textarea>
+            
+            <label for="field_rating"><?php esc_html_e('Rating', 'kbte'); ?></label>
+            
+            <div class="krating">
+
+                <input type="radio" id="kbte_rating_5" class="krating-input" name="kbte_form[<?php echo esc_attr( $fields['rating']['name'] ); ?>]" value="5" <?php checked( $fields['rating']['value'], 5 ); ?>>
+                <label for="kbte_rating_5" class="krating-star"></label>
+
+                <input type="radio" id="kbte_rating_4" class="krating-input" name="kbte_form[<?php echo esc_attr( $fields['rating']['name'] ); ?>]" value="4" <?php checked( $fields['rating']['value'], 4 ); ?>>
+                <label for="kbte_rating_4" class="krating-star"></label>
+
+                <input type="radio" id="kbte_rating_3" class="krating-input" name="kbte_form[<?php echo esc_attr( $fields['rating']['name'] ); ?>]" value="3" <?php checked( $fields['rating']['value'], 3 ); ?>>
+                <label for="kbte_rating_3" class="krating-star"></label>
+
+                <input type="radio" id="kbte_rating_2" class="krating-input" name="kbte_form[<?php echo esc_attr( $fields['rating']['name'] ); ?>]" value="2" <?php checked( $fields['rating']['value'], 2 ); ?>>
+                <label for="kbte_rating_2" class="krating-star"></label>
+
+                <input type="radio" id="kbte_rating_1" class="krating-input" name="kbte_form[<?php echo esc_attr( $fields['rating']['name'] ); ?>]" value="1" <?php checked( $fields['rating']['value'], 1 ); ?>>
+                <label for="kbte_rating_1" class="krating-star"></label>
+            
+            </div>
+            
             <?php if ( $fields['rating']['required'] ) : ?><small class="error"><?php esc_html_e('A rating is required.', 'kbte'); ?></small><?php endif; ?>
+            
         </div>
     
     <?php endif; ?>
