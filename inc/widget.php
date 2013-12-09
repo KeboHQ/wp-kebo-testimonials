@@ -31,11 +31,17 @@ class Kbte_Testimonials_Widget extends WP_Widget {
         'form_id' => null, // should automatically be generated
         'form_fields' => array( 'name', 'review' ),
         'field_title' => 'false',
+        'field_title_required' => 'false',
         'field_name' => 'true',
+        'field_name_required' => 'true',
         'field_url' => 'false',
+        'field_url_required' => 'false',
         'field_email' => 'false',
+        'field_email_required' => 'false',
         'field_review' => 'true',
+        'field_review_required' => 'true',
         'field_rating' => 'false',
+        'field_rating_required' => 'false',
     );
     
     /**
