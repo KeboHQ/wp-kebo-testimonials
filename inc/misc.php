@@ -40,7 +40,7 @@ function kbte_get_default_form_fields() {
         'title' => array(
             'label' => __('Title', 'kbte'),
             'name' => 'title',
-            'type' => 'textinput',
+            'type' => 'text',
             'required' => false,
             'value' => '',
             'error' => '',
@@ -48,15 +48,15 @@ function kbte_get_default_form_fields() {
         'name' => array(
             'label' => __('Name', 'kbte'),
             'name' => 'name',
-            'type' => 'textinput',
-            'required' => true,
+            'type' => 'text',
+            'required' => false,
             'value' => '',
             'error' => '',
         ),
         'email' => array(
             'label' => __('Email', 'kbte'),
             'name' => 'email',
-            'type' => 'textinput',
+            'type' => 'text_email',
             'required' => false,
             'value' => '',
             'error' => '',
@@ -64,7 +64,7 @@ function kbte_get_default_form_fields() {
         'url' => array(
             'label' => __('URL', 'kbte'),
             'name' => 'url',
-            'type' => 'textinput',
+            'type' => 'text_url',
             'required' => false,
             'value' => '',
             'error' => '',
@@ -80,7 +80,7 @@ function kbte_get_default_form_fields() {
         'rating' => array(
             'label' => __('Rating', 'kbte'),
             'name' => 'rating',
-            'type' => 'rating',
+            'type' => 'integer',
             'required' => false,
             'value' => '',
             'error' => '',
