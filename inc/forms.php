@@ -66,13 +66,16 @@ function kbte_testimonials_new_entry_saved( $post_id ) {
 }
 add_action( 'kbte_testimonials_testimonial_saved', 'kbte_testimonials_new_entry_saved', 1 );
 
-/*
- * Validation Function for Form Data
+/**
+ * Validates Form Submission
+ * @param type $fields
+ * @return array
  */
 function kbte_testimonials_form_validation( $fields ) {
 
     /*
      * Loop fields and validate each one
+     * TODO: No need for switch statement, change to if.
      */
     foreach ( $fields as $field ) {
 
@@ -140,7 +143,11 @@ function kbte_testimonials_form_validation( $fields ) {
 
             case 'review':
 
-                $fields[ $field['name'] ]['value'] = ( isset( $_POST['kbte_form']['review'] ) ) ? wp_strip_all_tags( trim( $_POST['kbte_form']['review'] ) ) : '';
+                // Don't allow HTML in Reviews
+                // Could use wp_kses_data() to match comment checking
+                $allowed_html = array();
+                
+                $fields[ $field['name'] ]['value'] = ( isset( $_POST['kbte_form']['review'] ) ) ? wp_kses( trim( $_POST['kbte_form']['review'] ), $allowed_html ) : '';
 
                 if ( empty( $fields[ $field['name'] ]['value'] ) && true == $fields[ $field['name'] ]['required'] ) {
 
