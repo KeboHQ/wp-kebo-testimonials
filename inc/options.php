@@ -213,7 +213,7 @@ function kbte_options_render_text_input( $args ) {
     
     $label_text = ( $args['label_text'] ) ? esc_attr( $args['label_text'] ) : '' ;
     
-    $help_text = ( $args['help_text'] ) ? esc_html( $args['help_text'] ) : null;
+    $help_text = ( isset( $args['help_text'] ) ) ? esc_html( $args['help_text'] ) : null;
         
     ?>
     <label class="description" for="<?php echo $name; ?>">
