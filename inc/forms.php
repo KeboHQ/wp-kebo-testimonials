@@ -44,22 +44,27 @@ add_action('init', 'kbte_testimonials_check_for_form_data');
 /*
  * Sends email to admin when new testimonials are received
  */
-function kbte_testimonials_new_entry_saved() {
+function kbte_testimonials_new_entry_saved( $post_data, $post_meta, $fields, $post_id ) {
     
-    $headers[] = 'From: Me Myself <me@example.net>';
-    $headers[] = 'Cc: John Q Codex <jqc@wordpress.org>';
-    $headers[] = 'Cc: iluvwp@wordpress.org'; // note you can just use a simple email address
+    // If an admin email is set, send a notification email.
+    if ( false !== ( $admin_email = get_option( 'admin_email' ) ) ) {
+    
+        $headers[] = 'From: ' . get_option( 'blogname' ) .' <admin@' . get_option( 'home' ) . '>';
 
-    $to = 'mail@peterbooker.com';
+        $to = $admin_email;
+
+        $subject = 'New Testimonial Received - (' . get_option( 'blogname' ) . ')';
+
+        $post_url = 'post.php?post=' . $post_id . '&action=edit';
+
+        $message = 'You have received a new Testimonial on your WordPress site at ' . get_option( 'home' ) . '. To view this Testimonial please <a href="' . admin_url( $post_url ) . '" target="_blank">click here</a>.';
+
+        wp_mail( $to, $subject, $message, $headers );
     
-    $subject = 'New Testimonial Received';
-    
-    $message = 'hello world!';
-    
-    wp_mail( $to, $subject, $message, $headers );
+    }
     
 }
-add_action( 'kbte_testimonials_testimonial_saved', 'kbte_testimonials_new_entry_saved', 3 );
+add_action( 'kbte_testimonials_testimonial_saved', 'kbte_testimonials_new_entry_saved', 4 );
 
 /*
  * Validation Function for Form Data
