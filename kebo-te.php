@@ -108,6 +108,11 @@ function kbte_plugin_setup() {
          * Include Menu Page.
          */
         require_once( KBTE_PATH . 'inc/menu.php' );
+        
+        /*
+         * Include Admin Dashboard Customisations.
+         */
+        require_once( KBTE_PATH . 'inc/dashboard.php' );
     
     } else {
         
